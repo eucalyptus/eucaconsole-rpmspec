@@ -15,7 +15,7 @@ Source0:        koala-%{version}-prealpha.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  m2crypto
-BuildRequires:  python-beaker15
+#BuildRequires:  python-beaker15
 BuildRequires:  python-boto >= 2.21.0
 BuildRequires:  python-chameleon >= 2.5.3
 BuildRequires:  python-crypto
@@ -26,9 +26,9 @@ BuildRequires:  python-gunicorn
 BuildRequires:  python-nose
 BuildRequires:  python-pygments
 BuildRequires:  python-pyramid
-BuildRequires:  python-pyramid-beaker
-BuildRequires:  python-pyramid-chameleon
-BuildRequires:  python-pyramid-layout
+#BuildRequires:  python-pyramid-beaker
+#BuildRequires:  python-pyramid-chameleon
+#BuildRequires:  python-pyramid-layout
 BuildRequires:  python-pyramid-tm
 BuildRequires:  python-setuptools-devel
 BuildRequires:  python-simplejson
