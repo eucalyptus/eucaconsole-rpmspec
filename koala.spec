@@ -75,7 +75,7 @@ TODO
 
 
 %prep
-%setup -q -n koala-%{version}
+%setup -q -n koala-%{version}-prealpha
 
 
 %build
