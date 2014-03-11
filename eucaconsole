@@ -16,9 +16,9 @@ from paste.deploy import loadapp
 from gunicorn.app.pasterapp import paste_server
 
 def main():
-    config = os.environ.get("KOALA_CONFIG", '/etc/koala/console.ini')
-    pidfile = os.environ.get("KOALA_PIDFILE", '/var/run/eucalyptus-console/eucalyptus-console.pid')
-    port = int(os.environ.get("KOALA_PORT", 8888))
+    config = os.environ.get("EUCACONSOLE_CONFIG", '/etc/eucaconsole/console.ini')
+    pidfile = os.environ.get("EUCACONSOLE_PIDFILE", '/var/run/eucaconsole/eucaconsole.pid')
+    port = int(os.environ.get("EUCACONSOLE_PORT", 8888))
     workers = multiprocessing.cpu_count() * 2 + 1
     worker_class = 'gevent'
     app = loadapp("config:" + config, relative_to='.')
