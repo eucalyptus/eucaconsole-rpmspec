@@ -36,6 +36,7 @@ BuildRequires:  python-wtforms
 BuildRequires:  python2-devel
 
 # RHEL 6
+Requires:       openssl
 Requires:       python-dateutil
 Requires:       python-simplejson
 Requires:       python-crypto
