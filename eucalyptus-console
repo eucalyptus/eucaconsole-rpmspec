@@ -17,11 +17,12 @@ from gunicorn.app.pasterapp import paste_server
 
 def main():
     config = os.environ.get("KOALA_CONFIG", '/etc/koala/console.ini')
+    pidfile = os.environ.get("KOALA_PIDFILE", '/var/run/eucalyptus-console/eucalyptus-console.pid')
     port = int(os.environ.get("KOALA_PORT", 8888))
     workers = multiprocessing.cpu_count() * 2 + 1
     worker_class = 'gevent'
     app = loadapp("config:" + config, relative_to='.')
-    paste_server(app, host='0.0.0.0', port=port, workers=workers, worker_class=worker_class, daemon = True, pidfile="/var/run/eucalyptus-console/eucalyptus-console.pid")
+    paste_server(app, host='0.0.0.0', port=port, workers=workers, worker_class=worker_class, daemon = True, pidfile=pidfile)
 
 if __name__ == "__main__":
     main()
