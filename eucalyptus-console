@@ -1,0 +1,27 @@
+#!/usr/bin/python
+"""
+Run app command for gunicorn
+The number of workers are automatically detected based on CPU count of the host.
+
+"""
+import os
+import multiprocessing
+import sys
+sys.path.insert(0, '/usr/lib/python2.6/site-packages/zope.interface-4.0.4-py2.6-linux-x86_64.egg/')
+sys.path.insert(0, '/usr/lib/python2.6/site-packages/Beaker-1.5.4-py2.6.egg/')
+import __main__; __main__.__requires__ = __requires__ = []
+__requires__.append('PasteDeploy >= 1.5.0')
+import pkg_resources; pkg_resources.require(__requires__)
+from paste.deploy import loadapp
+from gunicorn.app.pasterapp import paste_server
+
+def main():
+    config = os.environ.get("KOALA_CONFIG", '/etc/koala/console.ini')
+    port = int(os.environ.get("KOALA_PORT", 8888))
+    workers = multiprocessing.cpu_count() * 2 + 1
+    worker_class = 'gevent'
+    app = loadapp("config:" + config, relative_to='.')
+    paste_server(app, host='0.0.0.0', port=port, workers=workers, worker_class=worker_class, daemon = True, pidfile="/var/run/eucalyptus-console/eucalyptus-console.pid")
+
+if __name__ == "__main__":
+    main()
