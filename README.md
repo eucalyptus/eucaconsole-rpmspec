@@ -1,4 +1,4 @@
-koala-rpmspec
+eucaconsole-rpmspec
 =============
 
-RPM packaging bits for Koala
+RPM packaging bits for eucaconsole
