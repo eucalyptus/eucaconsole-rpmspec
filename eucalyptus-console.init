@@ -22,9 +22,13 @@ CONSOLEUSER=root
 LOCKFILE=/var/lock/subsys/eucalyptus-console
 
 start() {
-    #if [ "x${GENERATE_CERT}" != "xNO" ]; then
-    #    generate_cert
-    #fi
+    if [ "x${GENERATE_CERT}" != "xNO" ]; then
+        generate_cert
+    fi
+
+    if ! [ -f /etc/koala/session-keys.ini ]; then
+        generate_cookie_secrets
+    fi    
 
     echo -n $"Starting $SERVICE: "
     daemon --user=$CONSOLEUSER --pidfile=$PIDFILE $PROCESS -d -p $PIDFILE
@@ -56,6 +60,15 @@ condrestart() {
     fi
     RETVAL=0
     return $RETVAL
+}
+
+generate_cookie_secrets(){
+    cat > /etc/koala/session-keys.ini << _EOF_
+[general]
+session.encrypt_key = $(dd if=/dev/urandom bs=24 count=1 status=none | base64 | tr -d '/+=')
+session.validate_key = $(dd if=/dev/urandom bs=24 count=1 status=none | base64 | tr -d '/+=')
+_EOF_
+   fi
 }
 
 generate_cert() {
