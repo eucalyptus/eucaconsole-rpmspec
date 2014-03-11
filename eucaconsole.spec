@@ -1,6 +1,6 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
 
-Name:           koala
+Name:           eucaconsole
 Version:        4.0.0
 Release:        0.1%{?dist}
 Summary:        Eucalyptus Management Console
@@ -10,7 +10,7 @@ Summary:        Eucalyptus Management Console
 # Bundled "Play" font is OFL
 License:        BSD and MIT and OFL
 URL:            http://github.com/eucalyptus/koala
-Source0:        koala-%{version}-prealpha.tar.gz
+Source0:        eucaconsole-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -76,7 +76,7 @@ TODO
 
 
 %prep
-%setup -q -n koala-%{version}-prealpha
+%setup -q -n eucaconsole-%{version}
 
 
 %build
