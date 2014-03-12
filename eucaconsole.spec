@@ -98,6 +98,7 @@ mkdir -p $RPM_BUILD_ROOT/etc/init.d/%{name}
 cp -p %{name}.init $RPM_BUILD_ROOT/etc/init.d/%{name}
 mkdir -p $RPM_BUILD_ROOT/usr/bin/%{name}
 cp -p %{name}.py $RPM_BUILD_ROOT/usr/bin/%{name}
+mkdir -p $RPM_BUILD_ROOT/var/run/%{name}
 
 #%check
 #python2 setup.py test
@@ -109,6 +110,32 @@ cp -p %{name}.py $RPM_BUILD_ROOT/usr/bin/%{name}
 %{python_sitelib}/*
 #/usr/share/%{name}/*
 %config(noreplace) /etc/%{name}
+%{_bindir}/%{name}
+/etc/init.d/%{name}
+/var/run/%{name}
+
+%pre
+getent group eucaconsole >/dev/null || groupadd -r eucaconsole
+getent passwd eucaconsole >/dev/null || \
+    useradd -r -g eucaconsole -d /var/run/eucaconsole \
+    -c 'Eucalyptus Console' eucaconsole
+
+
+%post
+/sbin/chkconfig --add eucaconsole
+
+
+%preun
+if [ $1 -eq 0 ] ; then
+    /sbin/service eucaconsole stop >/dev/null 2>&1
+    /sbin/chkconfig --del eucaconsole
+fi
+
+
+%postun
+if [ "$1" -ge "1" ] ; then
+    /sbin/service eucaconsole condrestart >/dev/null 2>&1 || :
+fi
 
 %changelog
 * Fri Jan 17 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.0.0-0.1
