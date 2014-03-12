@@ -79,8 +79,8 @@ TODO
 
 %prep
 %setup -q -n eucaconsole-%{version}
-cp -p %SOURCE1 eucaconsole-%{version}
-cp -p %SOURCE2 eucaconsole-%{version}
+%setup -T -D -a 1
+%setup -T -D -a 2
 
 %build
 python2 setup.py build
