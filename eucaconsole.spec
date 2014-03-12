@@ -79,6 +79,8 @@ TODO
 
 %prep
 %setup -q -n eucaconsole-%{version}
+ls -l
+pwd
 %setup -T -D -a 1
 %setup -T -D -a 2
 
