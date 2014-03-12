@@ -104,6 +104,9 @@ install -m 755 %{name}.py $RPM_BUILD_ROOT/usr/bin/%{name}
 install -d $RPM_BUILD_ROOT/etc/%{name}
 install -m 755 conf/console.default.ini $RPM_BUILD_ROOT/etc/%{name}/console.ini
 
+# Install dir for pidfile
+install -d $RPM_BUILD_ROOT/var/run/eucaconsole
+
 
 #%check
 #python2 setup.py test
@@ -117,6 +120,7 @@ install -m 755 conf/console.default.ini $RPM_BUILD_ROOT/etc/%{name}/console.ini
 %config(noreplace) /etc/%{name}
 %{_bindir}/%{name}
 /etc/init.d/%{name}
+%attr(-,eucaconsole,eucaconsole) %dir /var/run/eucaconsole
 
 %pre
 getent group eucaconsole >/dev/null || groupadd -r eucaconsole
