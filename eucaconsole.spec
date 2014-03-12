@@ -94,8 +94,10 @@ python2 setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT/etc/%{name}
 cp -p conf/console.default.ini $RPM_BUILD_ROOT/etc/%{name}/console.ini
+mkdir -p $RPM_BUILD_ROOT/etc/init.d/%{name}
 cp -p %{name}.init $RPM_BUILD_ROOT/etc/init.d/%{name}
-cp -p %{name} $RPM_BUILD_ROOT/etc/bin/%{name}
+mkdir -p $RPM_BUILD_ROOT/usr/bin/%{name}
+cp -p %{name}.py $RPM_BUILD_ROOT/usr/bin/%{name}
 
 #%check
 #python2 setup.py test
