@@ -100,9 +100,6 @@ install -m 755 %{name}.init $RPM_BUILD_ROOT/etc/init.d/%{name}
 install -d $RPM_BUILD_ROOT/usr/bin
 install -m 755 %{name}.py $RPM_BUILD_ROOT/usr/bin/%{name}
 
-# Install dir for pid file
-install -d -o %{name} -g %{name} $RPM_BUILD_ROOT/var/run/eucaconsole
-
 # Install conf file
 install -d -o %{name} -g %{name} $RPM_BUILD_ROOT/etc/%{name}
 install -m 755 -o %{name} -g %{name} conf/console.default.ini $RPM_BUILD_ROOT/etc/%{name}/console.ini
