@@ -93,8 +93,8 @@ rm -rf $RPM_BUILD_ROOT
 python2 setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 
 # Install init script
-install -d $RPM_BUILD_ROOT%{_initrddir}
-install -m 755 %{name}.init $RPM_BUILD_ROOT%{_initrddir}/%{name}
+install -d $RPM_BUILD_ROOT/etc/init.d
+install -m 755 %{name}.init $RPM_BUILD_ROOT/etc/init.d/%{name}
 
 # Install executable
 install -d $RPM_BUILD_ROOT/usr/bin
