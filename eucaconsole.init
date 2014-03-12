@@ -68,7 +68,6 @@ generate_cookie_secrets(){
 session.encrypt_key = $(dd if=/dev/urandom bs=24 count=1 status=none | base64 | tr -d '/+=')
 session.validate_key = $(dd if=/dev/urandom bs=24 count=1 status=none | base64 | tr -d '/+=')
 _EOF_
-   fi
 }
 
 generate_cert() {
