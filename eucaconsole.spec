@@ -2,7 +2,7 @@
 
 Name:           eucaconsole
 Version:        4.0.0
-Release:        0.1%{?dist}
+Release:        0.1%{?build_id:.%build_id}%{?dist}
 Summary:        Eucalyptus Management Console
 
 # Main code is BSD
