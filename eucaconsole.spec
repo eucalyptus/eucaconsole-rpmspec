@@ -12,7 +12,7 @@ License:        BSD and MIT and OFL
 URL:            http://github.com/eucalyptus/koala
 Source0:        eucaconsole-%{version}.tar.gz
 Source1:        eucaconsole.init
-Source2:        eucaconsole.spec
+Source2:        eucaconsole
 
 BuildArch:      noarch
 
