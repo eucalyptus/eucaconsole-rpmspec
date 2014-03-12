@@ -92,13 +92,21 @@ python2 setup.py build
 rm -rf $RPM_BUILD_ROOT
 python2 setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 
-mkdir -p $RPM_BUILD_ROOT/etc/%{name}
-cp -p conf/console.default.ini $RPM_BUILD_ROOT/etc/%{name}/console.ini
-mkdir -p $RPM_BUILD_ROOT/etc/init.d
-cp -p %{name}.init $RPM_BUILD_ROOT/etc/init.d/%{name}
-mkdir -p $RPM_BUILD_ROOT/usr/bin
-cp -p %{name}.py $RPM_BUILD_ROOT/usr/bin/%{name}
-mkdir -p $RPM_BUILD_ROOT/var/run/%{name}
+# Install init script
+install -d $RPM_BUILD_ROOT%{_initrddir}
+install -m 755 %{name}.init $RPM_BUILD_ROOT%{_initrddir}/%{name}
+
+# Install executable
+install -d $RPM_BUILD_ROOT/usr/bin
+install -m 755 %{name}.py $RPM_BUILD_ROOT/usr/bin/%{name}
+
+# Install dir for pid file
+install -d $RPM_BUILD_ROOT/var/run/eucaconsole
+
+# Install conf file
+install -d $RPM_BUILD_ROOT/etc/%{name}
+install -m 755 conf/console.default.ini $RPM_BUILD_ROOT/etc/%{name}/console.ini
+
 
 #%check
 #python2 setup.py test
