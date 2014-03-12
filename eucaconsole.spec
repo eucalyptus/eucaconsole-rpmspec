@@ -117,7 +117,6 @@ install -m 755 conf/console.default.ini $RPM_BUILD_ROOT/etc/%{name}/console.ini
 %config(noreplace) /etc/%{name}
 %{_bindir}/%{name}
 /etc/init.d/%{name}
-/var/run/%{name}
 
 %pre
 getent group eucaconsole >/dev/null || groupadd -r eucaconsole
