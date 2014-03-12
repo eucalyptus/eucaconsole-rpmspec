@@ -10,9 +10,9 @@ Summary:        Eucalyptus Management Console
 # Bundled "Play" font is OFL
 License:        BSD and MIT and OFL
 URL:            http://github.com/eucalyptus/koala
-Source0:        %{name}-%{version}.tar.gz
-Source1:        %{name}.init
-Source2:        %{name}
+Source0:        eucaconsole-%{version}.tar.gz
+Source1:        eucaconsole.init
+Source2:        eucaconsole
 
 BuildArch:      noarch
 
