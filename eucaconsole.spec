@@ -81,8 +81,8 @@ TODO
 %setup -q -n eucaconsole-%{version}
 ls -l
 pwd
-%setup -T -D -a 1
-%setup -T -D -a 2
+cp -p %SOURCE1 .
+cp -p %SOURCE2 %{name}.py
 
 %build
 python2 setup.py build
