@@ -10,7 +10,9 @@ Summary:        Eucalyptus Management Console
 # Bundled "Play" font is OFL
 License:        BSD and MIT and OFL
 URL:            http://github.com/eucalyptus/koala
-Source0:        eucaconsole-%{version}.tar.gz
+Source0:        %{name}-%{version}.tar.gz
+Source1:        %{name}.init
+Source2:        %{name}
 
 BuildArch:      noarch
 
@@ -77,7 +79,7 @@ TODO
 
 %prep
 %setup -q -n eucaconsole-%{version}
-
+cp  $RPM_BUILD_ROOT
 
 %build
 python2 setup.py build
@@ -89,7 +91,8 @@ python2 setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT/etc/%{name}
 cp -p conf/console.default.ini $RPM_BUILD_ROOT/etc/%{name}/console.ini
-
+cp -p %{name}.init $RPM_BUILD_ROOT/etc/init.d/%{name}
+cp -p %{name} $RPM_BUILD_ROOT/etc/bin/%{name}
 
 #%check
 #python2 setup.py test
