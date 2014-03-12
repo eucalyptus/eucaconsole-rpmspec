@@ -79,7 +79,6 @@ TODO
 
 %prep
 %setup -q -n eucaconsole-%{version}
-cp  $RPM_BUILD_ROOT
 
 %build
 python2 setup.py build
