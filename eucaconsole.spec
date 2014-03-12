@@ -96,7 +96,6 @@ mkdir -p $RPM_BUILD_ROOT/etc/%{name}
 cp -p conf/console.default.ini $RPM_BUILD_ROOT/etc/%{name}/console.ini
 mkdir -p $RPM_BUILD_ROOT/etc/init.d/%{name}
 cp -p %{name}.init $RPM_BUILD_ROOT/etc/init.d/%{name}
-mkdir -p $RPM_BUILD_ROOT/usr/bin/%{name}
 cp -p %{name}.py $RPM_BUILD_ROOT/usr/bin/%{name}
 mkdir -p $RPM_BUILD_ROOT/var/run/%{name}
 
