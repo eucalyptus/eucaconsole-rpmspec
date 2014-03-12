@@ -11,8 +11,6 @@ Summary:        Eucalyptus Management Console
 License:        BSD and MIT and OFL
 URL:            http://github.com/eucalyptus/koala
 Source0:        eucaconsole-%{version}.tar.gz
-Source1:        eucaconsole.init
-Source2:        eucaconsole.spec
 
 BuildArch:      noarch
 
@@ -79,8 +77,7 @@ TODO
 
 %prep
 %setup -q -n eucaconsole-%{version}
-%setup -a 1 -T 
-%setup -a 2 -T
+
 
 %build
 python2 setup.py build
@@ -92,8 +89,7 @@ python2 setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT/etc/%{name}
 cp -p conf/console.default.ini $RPM_BUILD_ROOT/etc/%{name}/console.ini
-cp -p eucaconsole.init $RPM_BUILD_ROOT/etc/init.d/%{name}
-cp -p eucaconsole $RPM_BUILD_ROOT/usr/bin/%{name}
+
 
 #%check
 #python2 setup.py test
