@@ -108,8 +108,8 @@ install -m 755 conf/console.default.ini $RPM_BUILD_ROOT/etc/%{name}/console.ini
 install -d $RPM_BUILD_ROOT/var/run/eucaconsole
 
 # Set path to session-keys
-sed -i -e 's@^#session.validate_key.*$@session.keyini=/etc/eucaconsole/session-keys.ini@' \
-       -e 's@^#session.encrypt_key.*$@@' \
+sed -i -e 's@^session.validate_key.*$@session.keyini=/etc/eucaconsole/session-keys.ini@' \
+       -e 's@^session.encrypt_key.*$@@' \
        $RPM_BUILD_ROOT/etc/%{name}/console.ini
 
 #%check
