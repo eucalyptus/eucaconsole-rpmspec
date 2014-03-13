@@ -107,6 +107,10 @@ install -m 755 conf/console.default.ini $RPM_BUILD_ROOT/etc/%{name}/console.ini
 # Install dir for pidfile
 install -d $RPM_BUILD_ROOT/var/run/eucaconsole
 
+# Set path to session-keys
+sed -i -e 's@^#session.validate_key.*$@session.keyini=/etc/eucaconsole/session-keys.ini@' \
+       -e 's@^#session.encrypt_key.*$@@' \
+       $RPM_BUILD_ROOT/etc/%{name}/console.ini
 
 #%check
 #python2 setup.py test
@@ -127,10 +131,6 @@ getent group eucaconsole >/dev/null || groupadd -r eucaconsole
 getent passwd eucaconsole >/dev/null || \
     useradd -r -g eucaconsole -d /var/run/eucaconsole \
     -c 'Eucalyptus Console' eucaconsole
-
-sed -i -e 's@^#session.validate_key.*$@session.keyini=/etc/eucaconsole/session-keys.ini@' \
-       -e 's@^#session.encrypt_key.*$@@' \
-       $RPM_BUILD_ROOT/etc/eucaconsole/console.ini
 
 %post
 /sbin/chkconfig --add eucaconsole
