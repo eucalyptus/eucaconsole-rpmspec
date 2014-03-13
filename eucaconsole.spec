@@ -128,6 +128,9 @@ getent passwd eucaconsole >/dev/null || \
     useradd -r -g eucaconsole -d /var/run/eucaconsole \
     -c 'Eucalyptus Console' eucaconsole
 
+sed -i -e 's@^#session.validate_key.*$@session.keyini=/etc/eucaconsole/session-keys.ini@' \
+       -e 's@^#session.encrypt_key.*$@@' \
+       $RPM_BUILD_ROOT/etc/eucaconsole/console.ini
 
 %post
 /sbin/chkconfig --add eucaconsole
