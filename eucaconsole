@@ -22,6 +22,7 @@ import time
 pid_file = "/var/run/eucaconsole.pid"
 config_file = "/etc/eucaconsole/console.ini"
 
+procid = 0
 
 def daemonize(func=None):
     # Fork process
@@ -67,8 +68,9 @@ def daemonize(func=None):
 
 
 def cleanpid(signum=None, action=None):
-    os.remove(pid_file)
-    sys.exit(0)
+    if os.getpgid(procid) == 1:
+        os.remove(pid_file)
+        sys.exit(0)
 
 
 def start_console():
