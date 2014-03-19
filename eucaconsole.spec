@@ -109,10 +109,9 @@ install -m 755 conf/console.default.ini $RPM_BUILD_ROOT/etc/%{name}/console.ini
 # Install dir for pidfile
 install -d $RPM_BUILD_ROOT/var/run/eucaconsole
 
-# Set path to session-keys
-sed -i -e 's@^session.validate_key.*$@session.keyini=/etc/eucaconsole/session-keys.ini@' \
-       -e 's@^session.encrypt_key.*$@@' \
-       $RPM_BUILD_ROOT/etc/%{name}/console.ini
+# Create log file
+install -d $RPM_BUILD_ROOT/var/log
+touch $RPM_BUILD_ROOT/var/log/%{name}.log
 
 #%check
 #python2 setup.py test
@@ -126,7 +125,9 @@ sed -i -e 's@^session.validate_key.*$@session.keyini=/etc/eucaconsole/session-ke
 %config(noreplace) /etc/%{name}
 %{_bindir}/%{name}
 /etc/init.d/%{name}
-%attr(-,eucaconsole,eucaconsole) %dir /var/run/eucaconsole
+%attr(-,eucaconsole,eucaconsole) %dir /var/run/%{name}
+%attr(-,eucaconsole,eucaconsole) /var/log/%{name}.log
+
 
 %pre
 getent group eucaconsole >/dev/null || groupadd -r eucaconsole
