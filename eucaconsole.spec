@@ -38,10 +38,12 @@ BuildRequires:  python-wtforms
 BuildRequires:  python2-devel
 
 # RHEL 6
+Requires:       mailcap
 Requires:       openssl
 Requires:       python-dateutil
 Requires:       python-simplejson
 Requires:       python-crypto
+
 # EPEL 6
 Requires:       m2crypto
 Requires:       python-boto >= 2.21.0
