@@ -44,7 +44,6 @@ stop() {
     RETVAL=$?
     echo
     [ $RETVAL -eq 0 ] && rm -f $LOCKFILE
-    [ -f $PIDFILE ] && rm -f $PIDFILE
 }
 
 restart() {
