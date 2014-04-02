@@ -46,7 +46,7 @@ Requires:       python-crypto
 
 # EPEL 6
 Requires:       m2crypto
-Requires:       python-boto >= 2.21.0
+Requires:       python-boto >= 2.27.0
 Requires:       python-chameleon >= 2.5.3
 Requires:       python-gevent >= 0.13.8
 Requires:       python-greenlet >= 0.3.1
