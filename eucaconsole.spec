@@ -65,13 +65,11 @@ Requires:       python-pyramid-layout
 
 # python-pyramid-chameleon is basically built into python-pyramid 1.4; was
 #    split out in 1.5.
-# TODO:  Main executable needs to refer to the config file under /etc
 # TODO:  remove pyramid_chameleon from pyramid.includes in config since we use pyramid 1.4
 # TODO:  patch config to write to syslog
 # TODO:  ship a syslog config file
 # TODO:  move static content to /usr/share/%{name}
 # TODO:  change the nginx config to point to new location for static content
-# TODO:  write an init script
 # TODO:  check if starting with version 4.0.0 is really a good idea
 
 
