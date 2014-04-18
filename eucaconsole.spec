@@ -63,14 +63,11 @@ Requires:       python-pyramid-beaker
 Requires:       python-pyramid-chameleon
 Requires:       python-pyramid-layout
 
-# python-pyramid-chameleon is basically built into python-pyramid 1.4; was
-#    split out in 1.5.
-# TODO:  remove pyramid_chameleon from pyramid.includes in config since we use pyramid 1.4
+# pushing these to after 4.0
 # TODO:  patch config to write to syslog
 # TODO:  ship a syslog config file
 # TODO:  move static content to /usr/share/%{name}
 # TODO:  change the nginx config to point to new location for static content
-# TODO:  check if starting with version 4.0.0 is really a good idea
 
 
 %description
