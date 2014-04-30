@@ -65,8 +65,8 @@ generate_cookie_secrets(){
     echo -n $"Generating cookie secrets: "
     KEY_FILE=/etc/eucaconsole/session-keys.ini
     touch $KEY_FILE
-    chown eucaconsole:eucaconsole $KEY_FILE
-    chmod 600 $KEY_FILE
+    chown root:eucaconsole $KEY_FILE
+    chmod 640 $KEY_FILE
     cat > $KEY_FILE << _EOF_
 [general]
 session.encrypt_key = $(dd if=/dev/urandom bs=24 count=1 status=none | base64 | tr -d '/+=')
