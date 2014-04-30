@@ -69,6 +69,7 @@ session.encrypt_key = $(dd if=/dev/urandom bs=24 count=1 status=none | base64 | 
 session.validate_key = $(dd if=/dev/urandom bs=24 count=1 status=none | base64 | tr -d '/+=')
 _EOF_
     chown eucaconsole:eucaconsole /etc/eucaconsole/session-keys.ini 
+    chmod 600 /etc/eucaconsole/session-keys.ini
     if [ $? -ne 0 ]; then
         rm -f /etc/eucaconsole/session-keys.ini
         failure $"Generating cookie secrets: "
