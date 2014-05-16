@@ -18,7 +18,7 @@ BuildArch:      noarch
 
 BuildRequires:  m2crypto
 #BuildRequires:  python-beaker15
-BuildRequires:  python-boto >= 2.21.0
+BuildRequires:  python-boto >= 2.27.0
 BuildRequires:  python-chameleon >= 2.5.3
 BuildRequires:  python-crypto
 BuildRequires:  python-dateutil
@@ -47,7 +47,7 @@ Requires:       python-crypto
 
 # EPEL 6
 Requires:       m2crypto
-Requires:       python-boto >= 2.21.0
+Requires:       python-boto >= 2.27.0
 Requires:       python-chameleon >= 2.5.3
 Requires:       python-gevent >= 0.13.8
 Requires:       python-greenlet >= 0.3.1
@@ -64,16 +64,11 @@ Requires:       python-pyramid-beaker
 Requires:       python-pyramid-chameleon
 Requires:       python-pyramid-layout
 
-# python-pyramid-chameleon is basically built into python-pyramid 1.4; was
-#    split out in 1.5.
-# TODO:  Main executable needs to refer to the config file under /etc
-# TODO:  remove pyramid_chameleon from pyramid.includes in config since we use pyramid 1.4
+# pushing these to after 4.0
 # TODO:  patch config to write to syslog
 # TODO:  ship a syslog config file
 # TODO:  move static content to /usr/share/%{name}
 # TODO:  change the nginx config to point to new location for static content
-# TODO:  write an init script
-# TODO:  check if starting with version 4.0.0 is really a good idea
 
 
 %description
