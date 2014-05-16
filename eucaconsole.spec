@@ -39,7 +39,8 @@ BuildRequires:  python2-devel
 
 # RHEL 6
 Requires:       mailcap
-Requires:       openssl
+# Required for proper login functionality
+Requires:       openssl%{?_isa} >= 1.0.1e-16
 Requires:       python-dateutil
 Requires:       python-simplejson
 Requires:       python-crypto
@@ -152,5 +153,8 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Fri May 16 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.0.0-0.1
+- Require version of openssl that works for the console
+
 * Fri Jan 17 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.0.0-0.1
 - Created
