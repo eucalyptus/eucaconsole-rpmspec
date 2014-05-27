@@ -2,7 +2,7 @@
 
 Name:           eucaconsole
 Version:        4.0.0
-Release:        0.1%{?build_id:.%build_id}%{?dist}
+Release:        0%{?build_id:.%build_id}%{?dist}
 Summary:        Eucalyptus Management Console
 
 # Main code is BSD
@@ -70,9 +70,12 @@ Requires:       python-pyramid-layout
 # TODO:  move static content to /usr/share/%{name}
 # TODO:  change the nginx config to point to new location for static content
 
+Obsoletes:      eucalyptus-console < 4.0
+
 
 %description
-TODO
+This package contains the web UI for the Eucalyptus cloud platform.
+It also works with Amazon Web Services.
 
 
 %prep
@@ -148,6 +151,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Tue May 27 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.0.0-0
+- Obsolete eucalyptus-console < 4.0
+
 * Fri May 16 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.0.0-0.1
 - Require version of openssl that works for the console
 
