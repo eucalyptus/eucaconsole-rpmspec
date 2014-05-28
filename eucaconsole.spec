@@ -39,6 +39,9 @@ BuildRequires:  python2-devel
 
 # RHEL 6
 Requires:       mailcap
+# Add support for ``dd status=none''
+# https://bugzilla.redhat.com/show_bug.cgi?id=965654
+Requires:       coreutils >= 8.4-22
 # Required for proper login functionality
 Requires:       openssl%{?_isa} >= 1.0.1e-16
 Requires:       python-dateutil
@@ -151,6 +154,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Wed May 28 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.0.0-0
+- Require coreutils >= 8.4-22 [RH:965654]
+
 * Tue May 27 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.0.0-0
 - Obsolete eucalyptus-console < 4.0
 
