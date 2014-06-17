@@ -1,7 +1,7 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
 
 Name:           eucaconsole
-Version:        4.0.0
+Version:        4.0.1
 Release:        0%{?build_id:.%build_id}%{?dist}
 Summary:        Eucalyptus Management Console
 
@@ -154,6 +154,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Tue Jun 17 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.0.1-0
+- Updated to 4.0.1
+
 * Wed May 28 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.0.0-0
 - Require coreutils >= 8.4-22 [RH:965654]
 
