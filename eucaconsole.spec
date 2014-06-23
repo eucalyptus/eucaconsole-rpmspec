@@ -123,7 +123,7 @@ touch $RPM_BUILD_ROOT/var/log/%{name}.log
 %doc README.rst
 %doc conf/nginx.conf
 %{python_sitelib}/*
-#/usr/share/%{name}/*
+/usr/share/locale/*/LC_MESSAGES/%{name}.mo
 %config(noreplace) /etc/%{name}
 %{_bindir}/%{name}
 /etc/init.d/%{name}
