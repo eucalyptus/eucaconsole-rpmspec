@@ -16,6 +16,7 @@ Source2:        %{name}
 
 BuildArch:      noarch
 
+BuildRequires:  gettext
 BuildRequires:  m2crypto
 #BuildRequires:  python-beaker15
 BuildRequires:  python-boto >= 2.27.0
@@ -115,15 +116,17 @@ install -d $RPM_BUILD_ROOT/var/run/eucaconsole
 install -d $RPM_BUILD_ROOT/var/log
 touch $RPM_BUILD_ROOT/var/log/%{name}.log
 
+%find_lang %{name}
+
+
 #%check
 #python2 setup.py test
 
 
-%files
+%files -f %{name}.lang
 %doc README.rst
 %doc conf/nginx.conf
 %{python_sitelib}/*
-/usr/share/locale/*/LC_MESSAGES/%{name}.mo
 %config(noreplace) /etc/%{name}
 %{_bindir}/%{name}
 /etc/init.d/%{name}
