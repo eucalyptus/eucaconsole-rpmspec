@@ -10,7 +10,7 @@ Summary:        Eucalyptus Management Console
 # Bundled "Play" font is OFL
 License:        BSD and MIT and OFL
 URL:            http://github.com/eucalyptus/koala
-Source0:        %{name}-%{version}.tar.gz
+Source0:        %{tarball_basedir}.tar.gz
 Source1:        %{name}.init
 Source2:        %{name}
 
@@ -83,11 +83,9 @@ It also works with Amazon Web Services.
 
 
 %prep
-%setup -q -n eucaconsole-%{version}
-ls -l
-pwd
-cp -p %SOURCE1 .
-cp -p %SOURCE2 %{name}.py
+%setup -q -n %{tarball_basedir}
+cp -p %{SOURCE1} .
+cp -p %{SOURCE2} %{name}.py
 
 %build
 python2 setup.py build
@@ -157,6 +155,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Mon Jul  7 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.0.1-0
+- Switched to monolithic source tarball naming
+
 * Tue Jun 17 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.0.1-0
 - Updated to 4.0.1
 
