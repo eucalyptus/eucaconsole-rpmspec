@@ -10,7 +10,7 @@ Summary:        Eucalyptus Management Console
 # Bundled "Play" font is OFL
 License:        BSD and MIT and OFL
 URL:            http://github.com/eucalyptus/koala
-Source0:        %{tarball_basedir}.tar.gz
+Source0:        %{tarball_basedir}.tar.xz
 Source1:        %{name}.init
 Source2:        %{name}
 
@@ -155,6 +155,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Tue Jul  8 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.0.1-0
+- Switched to xz-compressed sources
+
 * Mon Jul  7 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.0.1-0
 - Switched to monolithic source tarball naming
 
