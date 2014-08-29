@@ -28,6 +28,7 @@ BuildRequires:  python-greenlet >= 0.3.1
 BuildRequires:  python-gunicorn
 BuildRequires:  python-nose
 BuildRequires:  python-pygments
+BuildRequires:  python-pylibmc
 BuildRequires:  python-pyramid
 #BuildRequires:  python-pyramid-beaker
 #BuildRequires:  python-pyramid-chameleon
@@ -155,6 +156,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Fri Aug 29 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.1.0
+- Added python-pylibmc dependency [GUI-1083]
+
 * Tue Jul  8 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.0.1-0
 - Switched to xz-compressed sources
 
