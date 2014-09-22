@@ -1,7 +1,7 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
 
 Name:           eucaconsole
-Version:        4.0.1
+Version:        4.0.2
 Release:        0%{?build_id:.%build_id}%{?dist}
 Summary:        Eucalyptus Management Console
 
@@ -155,6 +155,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Mon Sep 22 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.0.2
+- Version bump (4.0.2)
+
 * Tue Jul  8 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.0.1-0
 - Switched to xz-compressed sources
 
