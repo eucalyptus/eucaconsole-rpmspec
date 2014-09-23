@@ -55,6 +55,7 @@ Requires:       python-simplejson
 Requires:       m2crypto
 Requires:       python-boto >= 2.27.0
 Requires:       python-chameleon >= 2.5.3
+Requires:       python-dogpile-cache
 Requires:       python-gevent >= 0.13.8
 Requires:       python-greenlet >= 0.3.1
 Requires:       python-gunicorn
@@ -158,6 +159,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Tue Sep 23 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.4.0
+- Require python-dogpile-cache
+
 * Fri Aug 29 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.1.0
 - Added python-pylibmc dependency [GUI-1083]
 - Added python-magic dependency [GUI-1040]
