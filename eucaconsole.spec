@@ -75,7 +75,7 @@ Requires:       coreutils >= 8.4-22
 Requires:       openssl%{?_isa} >= 1.0.1e-16
 Requires:       python-crypto
 Requires:       python-dateutil
-Requires:       python-magic
+Requires:       python-python-magic
 Requires:       python-simplejson
 
 # EPEL 6
@@ -186,7 +186,10 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
-* Tue Sep 23 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.4.0
+* Fri Oct 31 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.1.0
+- Replaced python-magic dependency with python-python-magic [GUI-1407]
+
+* Tue Sep 23 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.1.0
 - Require python-dogpile-cache
 
 * Mon Sep 22 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.0.2
