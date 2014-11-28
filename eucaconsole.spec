@@ -46,7 +46,7 @@ BuildArch:      noarch
 BuildRequires:  gettext
 BuildRequires:  m2crypto
 #BuildRequires:  python-beaker15
-BuildRequires:  python-boto >= 2.27.0
+BuildRequires:  python-boto >= 2.34.0
 BuildRequires:  python-chameleon >= 2.5.3
 BuildRequires:  python-crypto
 BuildRequires:  python-dateutil
