@@ -155,6 +155,7 @@ touch $RPM_BUILD_ROOT/var/log/%{name}.log
 %files -f %{name}.lang
 %doc README.rst
 %doc conf/nginx.conf
+%doc conf/memcached
 %{python_sitelib}/*
 %config(noreplace) /etc/%{name}
 %{_bindir}/%{name}
