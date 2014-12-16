@@ -50,7 +50,7 @@ BuildRequires:  python-boto >= 2.34.0
 BuildRequires:  python-chameleon >= 2.5.3
 BuildRequires:  python-crypto
 BuildRequires:  python-dateutil
-BuildRequires:  python-gevent >= 0.13.8
+BuildRequires:  python-gevent1 >= 1.0.1
 BuildRequires:  python-greenlet >= 0.3.1
 BuildRequires:  python-gunicorn
 BuildRequires:  python-nose
