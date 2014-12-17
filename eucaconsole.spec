@@ -82,7 +82,6 @@ Requires:       python-simplejson
 Requires:       m2crypto
 Requires:       python-chameleon >= 2.5.3
 Requires:       python-dogpile-cache
-Requires:       python-gevent >= 0.13.8
 Requires:       python-greenlet >= 0.3.1
 Requires:       python-gunicorn
 
@@ -93,6 +92,7 @@ Requires:       python-wtforms
 
 # Euca packaged
 Requires:       python-beaker15
+Requires:       python-gevent1
 Requires:       python-pylibmc
 Requires:       python-pyramid-beaker
 Requires:       python-pyramid-chameleon
@@ -186,10 +186,13 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
-* Fri Dec 16 2014 David Kavanagh <dak@eucalyptus.com> - 4.1.0
+* Wed Dec 17 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.1.0
+- Replaced python-gevent BuildRequires with python-gevent1 as well
+
+* Tue Dec 16 2014 David Kavanagh <dak@eucalyptus.com> - 4.1.0
 - Replaced python-gevent dependency with python-gevent1
 
-* Fri Dec 9 2014 David Kavanagh <dak@eucalyptus.com> - 4.1.0
+* Tue Dec 9 2014 David Kavanagh <dak@eucalyptus.com> - 4.1.0
 - added memcached config file to package
 
 * Fri Nov 28 2014 David Kavanagh <dak@eucalyptus.com> - 4.1.0
