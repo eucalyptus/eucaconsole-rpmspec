@@ -1,4 +1,4 @@
-# Copyright 2012-2014 Eucalyptus Systems, Inc.
+# Copyright 2012-2015 Eucalyptus Systems, Inc.
 #
 # Redistribution and use of this software in source and binary forms, with or
 # without modification, are permitted provided that the following conditions
@@ -80,6 +80,7 @@ Requires:       python-simplejson
 
 # EPEL 6
 Requires:       m2crypto
+Requires:       python-boto >= 2.34.0
 Requires:       python-chameleon >= 2.5.3
 Requires:       python-dogpile-cache
 Requires:       python-greenlet >= 0.3.1
@@ -186,6 +187,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Mon Mar 23 2015 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.1.0
+- Re-added missing python-boto dependency (GUI-1614)
+
 * Wed Dec 17 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.1.0
 - Replaced python-gevent BuildRequires with python-gevent1 as well
 
