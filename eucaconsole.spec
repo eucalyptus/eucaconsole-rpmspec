@@ -28,7 +28,7 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
 
 Name:           eucaconsole
-Version:        4.1.0
+Version:        4.1.1
 Release:        0%{?build_id:.%build_id}%{?dist}
 Summary:        Eucalyptus Management Console
 
@@ -187,6 +187,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Mon Mar 30 2015 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.1.1
+- Version bump (4.1.1)
+
 * Mon Mar 23 2015 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.1.0
 - Re-added missing python-boto dependency (GUI-1614)
 
