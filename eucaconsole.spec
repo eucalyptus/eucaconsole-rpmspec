@@ -92,7 +92,8 @@ Requires:       python-pyramid-tm
 Requires:       python-wtforms
 
 # Euca packaged
-Requires:       python-beaker15
+# python-beaker15-1.5.4-8.4 backported support for HttpOnly flags
+Requires:       python-beaker15 >= 1.5.4-8.4
 Requires:       python-gevent1
 Requires:       python-pylibmc
 Requires:       python-pyramid-beaker
@@ -187,6 +188,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Fri Apr 17 2015 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.1.1
+- Bumped python-beaker15 dep to 1.5.4-8.4 (GUI-1638)
+
 * Mon Mar 30 2015 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.1.1
 - Version bump (4.1.1)
 
