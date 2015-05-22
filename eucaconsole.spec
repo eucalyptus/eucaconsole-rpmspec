@@ -60,7 +60,6 @@ BuildRequires:  python-pyramid
 #BuildRequires:  python-pyramid-beaker
 #BuildRequires:  python-pyramid-chameleon
 #BuildRequires:  python-pyramid-layout
-BuildRequires:  python-pyramid-tm
 BuildRequires:  python-setuptools-devel
 BuildRequires:  python-simplejson
 BuildRequires:  python-wtforms
@@ -88,7 +87,6 @@ Requires:       python-gunicorn
 
 # When switching to python-pyramid 1.5 add a dep on python-pyramid-chameleon
 Requires:       python-pyramid < 1.5
-Requires:       python-pyramid-tm
 Requires:       python-wtforms
 
 # Euca packaged
