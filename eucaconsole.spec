@@ -156,6 +156,7 @@ touch $RPM_BUILD_ROOT/var/log/%{name}.log
 %doc conf/nginx.conf
 %doc conf/memcached
 %{python_sitelib}/*
+/usr/share/%{name}
 %config(noreplace) /etc/%{name}
 %{_bindir}/%{name}
 /etc/init.d/%{name}
@@ -186,6 +187,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Thu Jun  4 2015 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.2.0
+- Added /usr/share/eucaconsole
+
 * Fri Apr 17 2015 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.1.1
 - Bumped python-beaker15 dep to 1.5.4-8.4 (GUI-1638)
 
