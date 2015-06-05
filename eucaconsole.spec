@@ -84,6 +84,7 @@ Requires:       python-chameleon >= 2.5.3
 Requires:       python-dogpile-cache
 Requires:       python-greenlet >= 0.3.1
 Requires:       python-gunicorn
+Requires:       python-defusedxml
 
 # When switching to python-pyramid 1.5 add a dep on python-pyramid-chameleon
 Requires:       python-pyramid < 1.5
