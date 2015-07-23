@@ -40,6 +40,7 @@ URL:            http://github.com/eucalyptus/koala
 Source0:        %{tarball_basedir}.tar.xz
 Source1:        %{name}.init
 Source2:        %{name}
+Source3:        %{name}.sysconfig
 
 BuildArch:      noarch
 
@@ -76,6 +77,7 @@ Requires:       python-crypto
 Requires:       python-dateutil
 Requires:       python-python-magic
 Requires:       python-simplejson
+Requires:       nginx
 
 # EPEL 6
 Requires:       m2crypto
@@ -117,6 +119,7 @@ It also works with Amazon Web Services.
 %setup -q -n %{tarball_basedir}
 cp -p %{SOURCE1} .
 cp -p %{SOURCE2} %{name}.py
+cp -p %{SOURCE3} .
 
 %build
 python2 setup.py build
@@ -145,6 +148,10 @@ install -d $RPM_BUILD_ROOT/var/run/eucaconsole
 install -d $RPM_BUILD_ROOT/var/log
 touch $RPM_BUILD_ROOT/var/log/%{name}.log
 
+# Install nginx sysconf file
+install -d $RPM_BUILD_ROOT/%_sysconfdir/sysconfig/
+install -m 644 %{name}.sysconfig $RPM_BUILD_ROOT/%_sysconfdir/sysconfig/%{name}
+
 %find_lang %{name}
 
 
@@ -161,6 +168,7 @@ touch $RPM_BUILD_ROOT/var/log/%{name}.log
 %config(noreplace) /etc/%{name}
 %{_bindir}/%{name}
 /etc/init.d/%{name}
+%config(noreplace) /etc/sysconfig/%{name}
 %attr(-,eucaconsole,eucaconsole) %dir /var/run/%{name}
 %attr(-,eucaconsole,eucaconsole) /var/log/%{name}.log
 
@@ -173,7 +181,9 @@ getent passwd eucaconsole >/dev/null || \
 
 %post
 /sbin/chkconfig --add eucaconsole
-
+if [ $1 -eq 1 ] ; then
+    cp /usr/share/doc/%{name}-%{version}/nginx.conf /etc/eucaconsole/nginx.conf
+fi
 
 %preun
 if [ $1 -eq 0 ] ; then
@@ -188,6 +198,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Thu Jul 23 2015 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.2.0
+- Install and manage nginx for use by eucaconsole.
+
 * Thu Jun  4 2015 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.2.0
 - Added /usr/share/eucaconsole
 
