@@ -28,7 +28,7 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
 
 Name:           eucaconsole
-Version:        4.1.1
+Version:        4.2.0
 Release:        0%{?build_id:.%build_id}%{?dist}
 Summary:        Eucalyptus Management Console
 
@@ -41,6 +41,8 @@ Source0:        %{tarball_basedir}.tar.xz
 Source1:        %{name}.init
 Source2:        %{name}
 Source3:        %{name}.sysconfig
+
+Patch0:         console.default.ini.patch
 
 BuildArch:      noarch
 
@@ -120,6 +122,7 @@ It also works with Amazon Web Services.
 cp -p %{SOURCE1} .
 cp -p %{SOURCE2} %{name}.py
 cp -p %{SOURCE3} .
+%patch0 -p0 
 
 %build
 python2 setup.py build
@@ -198,8 +201,11 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
-* Thu Jul 23 2015 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.2.0
+* Tue Aug  4 2015 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.2.0
 - Install and manage nginx for use by eucaconsole.
+
+* Wed Jul 29 2015 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.2.0
+- Version bump (4.2.0)
 
 * Thu Jun  4 2015 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.2.0
 - Added /usr/share/eucaconsole
