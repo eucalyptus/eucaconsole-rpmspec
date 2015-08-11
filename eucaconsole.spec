@@ -121,7 +121,6 @@ It also works with Amazon Web Services.
 %setup -q -n %{tarball_basedir}
 cp -p %{SOURCE1} .
 cp -p %{SOURCE2} %{name}.py
-cp -p %{SOURCE3} .
 %patch0 -p0 
 
 %build
@@ -143,6 +142,7 @@ install -m 755 %{name}.py $RPM_BUILD_ROOT/usr/bin/%{name}
 # Install conf file
 install -d $RPM_BUILD_ROOT/etc/%{name}
 install -m 755 conf/console.default.ini $RPM_BUILD_ROOT/etc/%{name}/console.ini
+install -m 755 conf/nginx.conf $RPM_BUILD_ROOT/etc/%{name}/nginx.conf
 
 # Install dir for pidfile
 install -d $RPM_BUILD_ROOT/var/run/eucaconsole
@@ -153,7 +153,7 @@ touch $RPM_BUILD_ROOT/var/log/%{name}.log
 
 # Install nginx sysconf file
 install -d $RPM_BUILD_ROOT/%_sysconfdir/sysconfig/
-install -m 644 %{name}.sysconfig $RPM_BUILD_ROOT/%_sysconfdir/sysconfig/%{name}
+install -m 644 %{SOURCE3} $RPM_BUILD_ROOT/%_sysconfdir/sysconfig/%{name}
 
 %find_lang %{name}
 
@@ -164,7 +164,6 @@ install -m 644 %{name}.sysconfig $RPM_BUILD_ROOT/%_sysconfdir/sysconfig/%{name}
 
 %files -f %{name}.lang
 %doc README.rst
-%doc conf/nginx.conf
 %doc conf/memcached
 %{python_sitelib}/*
 /usr/share/%{name}
@@ -184,9 +183,6 @@ getent passwd eucaconsole >/dev/null || \
 
 %post
 /sbin/chkconfig --add eucaconsole
-if [ $1 -eq 1 ] ; then
-    cp /usr/share/doc/%{name}-%{version}/nginx.conf /etc/eucaconsole/nginx.conf
-fi
 
 %preun
 if [ $1 -eq 0 ] ; then
