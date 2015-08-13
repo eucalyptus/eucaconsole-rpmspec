@@ -40,6 +40,9 @@ URL:            http://github.com/eucalyptus/koala
 Source0:        %{tarball_basedir}.tar.xz
 Source1:        %{name}.init
 Source2:        %{name}
+Source3:        %{name}.sysconfig
+
+Patch0:         console.default.ini.patch
 
 BuildArch:      noarch
 
@@ -76,6 +79,7 @@ Requires:       python-crypto
 Requires:       python-dateutil
 Requires:       python-python-magic
 Requires:       python-simplejson
+Requires:       nginx
 
 # EPEL 6
 Requires:       m2crypto
@@ -117,6 +121,7 @@ It also works with Amazon Web Services.
 %setup -q -n %{tarball_basedir}
 cp -p %{SOURCE1} .
 cp -p %{SOURCE2} %{name}.py
+%patch0 -p0 
 
 %build
 python2 setup.py build
@@ -137,6 +142,7 @@ install -m 755 %{name}.py $RPM_BUILD_ROOT/usr/bin/%{name}
 # Install conf file
 install -d $RPM_BUILD_ROOT/etc/%{name}
 install -m 755 conf/console.default.ini $RPM_BUILD_ROOT/etc/%{name}/console.ini
+install -m 755 conf/nginx.conf $RPM_BUILD_ROOT/etc/%{name}/nginx.conf
 
 # Install dir for pidfile
 install -d $RPM_BUILD_ROOT/var/run/eucaconsole
@@ -144,6 +150,10 @@ install -d $RPM_BUILD_ROOT/var/run/eucaconsole
 # Create log file
 install -d $RPM_BUILD_ROOT/var/log
 touch $RPM_BUILD_ROOT/var/log/%{name}.log
+
+# Install nginx sysconf file
+install -d $RPM_BUILD_ROOT/%_sysconfdir/sysconfig/
+install -m 644 %{SOURCE3} $RPM_BUILD_ROOT/%_sysconfdir/sysconfig/%{name}
 
 %find_lang %{name}
 
@@ -154,13 +164,13 @@ touch $RPM_BUILD_ROOT/var/log/%{name}.log
 
 %files -f %{name}.lang
 %doc README.rst
-%doc conf/nginx.conf
 %doc conf/memcached
 %{python_sitelib}/*
 /usr/share/%{name}
 %config(noreplace) /etc/%{name}
 %{_bindir}/%{name}
 /etc/init.d/%{name}
+%config(noreplace) /etc/sysconfig/%{name}
 %attr(-,eucaconsole,eucaconsole) %dir /var/run/%{name}
 %attr(-,eucaconsole,eucaconsole) /var/log/%{name}.log
 
@@ -173,7 +183,6 @@ getent passwd eucaconsole >/dev/null || \
 
 %post
 /sbin/chkconfig --add eucaconsole
-
 
 %preun
 if [ $1 -eq 0 ] ; then
@@ -188,6 +197,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Tue Aug  4 2015 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.2.0
+- Install and manage nginx for use by eucaconsole.
+
 * Wed Jul 29 2015 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.2.0
 - Version bump (4.2.0)
 

@@ -44,6 +44,7 @@
 SERVICE=eucaconsole
 PROCESS=eucaconsole
 PIDFILE=/var/run/eucaconsole/eucaconsole.pid
+NGINXPIDFILE=$(grep nginx.pid /etc/eucaconsole/nginx.conf | awk {'print $2'} | sed s'/\;//')
 CONSOLEUSER=eucaconsole
 
 LOCKFILE=/var/lock/subsys/eucaconsole
@@ -57,6 +58,13 @@ start() {
         generate_cookie_secrets
     fi    
 
+    if [ "x$NGINX_FLAGS" != xNO ]; then
+	echo -n "Starting eucaconsole nginx: "
+        daemon /usr/sbin/nginx -c /etc/eucaconsole/nginx.conf $NGINX_FLAGS
+	[ $? -eq 0 ] && touch /var/lock/subsys/eucaconsole-nginx
+        echo
+    fi
+
     echo -n $"Starting $SERVICE: "
     daemon --user=$CONSOLEUSER --pidfile=$PIDFILE $PROCESS -d -p $PIDFILE
     RETVAL=$?
@@ -66,6 +74,10 @@ start() {
 }
 
 stop() {
+    echo -n "Stopping eucaconsole nginx: "
+    killproc -p $NGINXPIDFILE /usr/sbin/nginx SIGQUIT
+    [ $? -eq 0 ] && rm /var/lock/subsys/eucaconsole-nginx
+    echo
     echo -n $"Stopping $SERVICE: "
     killproc -p $PIDFILE $PROCESS
     RETVAL=$?
