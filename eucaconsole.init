@@ -43,6 +43,7 @@
 
 SERVICE=eucaconsole
 PROCESS=eucaconsole
+LOGFILE=/var/log/eucaconsole.log
 PIDFILE=/var/run/eucaconsole/eucaconsole.pid
 NGINXPIDFILE=$(grep nginx.pid /etc/eucaconsole/nginx.conf | awk {'print $2'} | sed s'/\;//')
 CONSOLEUSER=eucaconsole
@@ -66,7 +67,7 @@ start() {
     fi
 
     echo -n $"Starting $SERVICE: "
-    daemon --user=$CONSOLEUSER --pidfile=$PIDFILE $PROCESS -d -p $PIDFILE
+    daemon --user=$CONSOLEUSER --pidfile=$PIDFILE $PROCESS -d -p $PIDFILE 2>&1 >>$LOGFILE
     RETVAL=$?
     echo
     [ $RETVAL -eq 0 ] && touch $LOCKFILE
