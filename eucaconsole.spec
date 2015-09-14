@@ -121,7 +121,7 @@ It also works with Amazon Web Services.
 %setup -q -n %{tarball_basedir}
 cp -p %{SOURCE1} .
 cp -p %{SOURCE2} %{name}.py
-%patch0 -p0 
+%patch0 -p0 -F3
 
 %build
 python2 setup.py build
