@@ -35,18 +35,12 @@ def daemonize(func=None):
     if procid == -1:
         sys.exit(1)
 
-    # Close open file descriptors
-    for fd in (0, 1, 2):
-        try:
-            os.close(fd)
-        except OSError:
-            pass
-
-    print("about to point fds to null")
-    # Point descriptors to /dev/null
-    os.open("/dev/null", os.O_RDWR)
-    os.dup(0)
-    os.dup(0)
+    # Close input file descriptor
+    try:
+        os.close(0)
+    except OSError:
+        pass
+    # leave output descriptor operation to capture output via redirect
 
     os.umask(027)
     os.chdir("/")
