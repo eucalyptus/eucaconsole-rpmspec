@@ -150,6 +150,7 @@ install -d $RPM_BUILD_ROOT/var/run/eucaconsole
 # Create log file
 install -d $RPM_BUILD_ROOT/var/log
 touch $RPM_BUILD_ROOT/var/log/%{name}.log
+touch $RPM_BUILD_ROOT/var/log/%{name}_startup.log
 
 # Install nginx sysconf file
 install -d $RPM_BUILD_ROOT/%_sysconfdir/sysconfig/
