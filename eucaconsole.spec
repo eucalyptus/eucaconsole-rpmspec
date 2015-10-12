@@ -36,7 +36,7 @@ Summary:        Eucalyptus Management Console
 # Bundled javascript is BSD and MIT
 # Bundled "Play" font is OFL
 License:        BSD and MIT and OFL
-URL:            http://github.com/eucalyptus/koala
+URL:            http://github.com/eucalyptus/eucaconsole
 Source0:        %{tarball_basedir}.tar.xz
 Source1:        %{name}.init
 Source2:        %{name}
