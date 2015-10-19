@@ -174,6 +174,7 @@ install -m 644 %{SOURCE3} $RPM_BUILD_ROOT/%_sysconfdir/sysconfig/%{name}
 %config(noreplace) /etc/sysconfig/%{name}
 %attr(-,eucaconsole,eucaconsole) %dir /var/run/%{name}
 %attr(-,eucaconsole,eucaconsole) /var/log/%{name}.log
+%attr(-,eucaconsole,eucaconsole) /var/log/%{name}_startup.log
 
 
 %pre

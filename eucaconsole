@@ -36,6 +36,9 @@ def daemonize(func=None):
     if procid == -1:
         sys.exit(1)
 
+    # close input descriptor and point it to /dev/null
+    os.close(0)
+    os.open("/dev/null", os.O_RWDR)
     # output descriptors point to log file
     f = os.open(log_file, os.O_WRONLY|os.O_APPEND)
     os.dup2(f, 1)
