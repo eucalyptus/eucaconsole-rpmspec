@@ -144,7 +144,7 @@ install -m 755 %{name}.py $RPM_BUILD_ROOT/usr/bin/%{name}
 install -d $RPM_BUILD_ROOT/etc/%{name}
 install -m 755 conf/console.default.ini $RPM_BUILD_ROOT/etc/%{name}/console.ini
 install -m 755 conf/nginx.conf $RPM_BUILD_ROOT/etc/%{name}/nginx.conf
-install -m 755 conf/memcached $RPM_BUILD_ROOT/etc/sysconfig/
+install -m 755 conf/memcached $RPM_BUILD_ROOT/etc/%{name}/memcached
 
 # Install dir for pidfile
 install -d $RPM_BUILD_ROOT/var/run/eucaconsole
@@ -167,7 +167,6 @@ install -m 644 %{SOURCE3} $RPM_BUILD_ROOT/%_sysconfdir/sysconfig/%{name}
 
 %files -f %{name}.lang
 %doc README.rst
-%doc conf/memcached
 %{python_sitelib}/*
 /usr/share/%{name}
 %config(noreplace) /etc/%{name}
