@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh 
 #
 # Copyright 2012-2014 Eucalyptus Systems, Inc.
 #
@@ -46,9 +46,20 @@ PROCESS=eucaconsole
 LOGFILE=/var/log/eucaconsole_startup.log
 PIDFILE=/var/run/eucaconsole/eucaconsole.pid
 NGINXPIDFILE=$(grep nginx.pid /etc/eucaconsole/nginx.conf | awk {'print $2'} | sed s'/\;//')
+MEMCACHEDPIDFILE=/var/run/memcached/eucaconsole-memcached.pid
 CONSOLEUSER=eucaconsole
 
 LOCKFILE=/var/lock/subsys/eucaconsole
+
+# memcached defaults
+USER=memcached
+MAXCONN=1024
+CACHESIZE=64
+OPTIONS=""
+
+if [ -f /etc/eucaconsole/memcached ];then
+        . /etc/eucaconsole/memcached
+fi
 
 start() {
     if [ "x${GENERATE_CERT}" != "xNO" ]; then
@@ -66,8 +77,18 @@ start() {
         echo
     fi
 
+    # Ensure that /var/run/memcached has proper permissions
+    if [ "`stat -c %U /var/run/memcached`" != "$USER" ]; then
+        chown $USER /var/run/memcached
+    fi
+
+    echo -n "Starting eucaconsole memcached: "
+    daemon --user=$USER --pidfile ${MEMCACHEDPIDFILE} memcached -d -p $PORT -u $USER  -m $CACHESIZE -c $MAXCONN -P ${MEMCACHEDPIDFILE} $OPTIONS
+    [ $? -eq 0 ] && touch /var/lock/subsys/eucaconsole-memcached
+    echo
+
     echo -n $"Starting $SERVICE: "
-    daemon --user=$CONSOLEUSER --pidfile=$PIDFILE $PROCESS -d -p $PIDFILE -l $LOGFILE
+    daemon --user=$CONSOLEUSER --pidfile=$PIDFILE $PROCESS -d -p $PIDFILE
     RETVAL=$?
     echo
     [ $RETVAL -eq 0 ] && touch $LOCKFILE
@@ -78,6 +99,13 @@ stop() {
     echo -n "Stopping eucaconsole nginx: "
     killproc -p $NGINXPIDFILE /usr/sbin/nginx SIGQUIT
     [ $? -eq 0 ] && rm /var/lock/subsys/eucaconsole-nginx
+    echo
+    echo -n "Stopping eucaconsole memcached: "
+    killproc -p ${MEMCACHEDPIDFILE} /usr/bin/memcached
+    RETVAL=$?
+    if [ $RETVAL -eq 0 ] ; then
+        rm -f /var/lock/subsys/eucaconsole-memcached ${MEMCACHEDPIDFILE}
+    fi
     echo
     echo -n $"Stopping $SERVICE: "
     killproc -p $PIDFILE $PROCESS
