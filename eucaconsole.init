@@ -75,9 +75,11 @@ start() {
 }
 
 stop() {
-    echo -n "Stopping eucaconsole nginx: "
-    killproc -p $NGINXPIDFILE /usr/sbin/nginx SIGQUIT
-    [ $? -eq 0 ] && rm /var/lock/subsys/eucaconsole-nginx
+    if [ "x$NGINX_FLAGS" != xNO ]; then
+        echo -n "Stopping eucaconsole nginx: "
+        killproc -p $NGINXPIDFILE /usr/sbin/nginx SIGQUIT
+        [ $? -eq 0 ] && rm /var/lock/subsys/eucaconsole-nginx
+    fi
     echo
     echo -n $"Stopping $SERVICE: "
     killproc -p $PIDFILE $PROCESS
