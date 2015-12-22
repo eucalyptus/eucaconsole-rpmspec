@@ -200,7 +200,7 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
-* Tue Aug  4 2015 David Kavanagh <dak@hpe.com> - 4.3.0
+* Tue Dec 22 2015 David Kavanagh <dak@hpe.com> - 4.3.0
 - Install and manage memcached for use by eucaconsole.
 
 * Tue Aug  4 2015 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.2.0
