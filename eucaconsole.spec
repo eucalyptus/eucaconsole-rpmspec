@@ -28,7 +28,7 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
 
 Name:           eucaconsole
-Version:        4.2.0
+Version:        4.2.2
 Release:        0%{?build_id:.%build_id}%{?dist}
 Summary:        Eucalyptus Management Console
 
@@ -199,6 +199,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Mon Dec  7 2015 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.2.1
+- Version bump (4.2.1)
+
 * Tue Aug  4 2015 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.2.0
 - Install and manage nginx for use by eucaconsole.
 
