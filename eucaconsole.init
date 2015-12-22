@@ -46,9 +46,19 @@ PROCESS=eucaconsole
 LOGFILE=/var/log/eucaconsole_startup.log
 PIDFILE=/var/run/eucaconsole/eucaconsole.pid
 NGINXPIDFILE=$(grep nginx.pid /etc/eucaconsole/nginx.conf | awk {'print $2'} | sed s'/\;//')
+MEMCACHEDPIDFILE=/var/run/eucaconsole/memcached.pid
 CONSOLEUSER=eucaconsole
 
 LOCKFILE=/var/lock/subsys/eucaconsole
+
+# memcached defaults
+MEMCACHED_MAXCONN=1024
+MEMCACHED_CACHESIZE=64
+MEMCACHED_FLAGS=""
+
+if [ -f /etc/eucaconsole/memcached ];then
+        . /etc/eucaconsole/memcached
+fi
 
 start() {
     if [ "x${GENERATE_CERT}" != "xNO" ]; then
@@ -60,9 +70,16 @@ start() {
     fi    
 
     if [ "x$NGINX_FLAGS" != xNO ]; then
-	echo -n "Starting eucaconsole nginx: "
+        echo -n "Starting eucaconsole nginx: "
         daemon /usr/sbin/nginx -c /etc/eucaconsole/nginx.conf $NGINX_FLAGS
-	[ $? -eq 0 ] && touch /var/lock/subsys/eucaconsole-nginx
+        [ $? -eq 0 ] && touch /var/lock/subsys/eucaconsole-nginx
+        echo
+    fi
+
+    if [ "x$MEMCACHED_FLAGS" != xNO ]; then
+        echo -n "Starting eucaconsole memcached: "
+        daemon --user=$CONSOLEUSER --pidfile ${MEMCACHEDPIDFILE} memcached -d -p $PORT -u $CONSOLEUSER  -m $MEMCACHED_CACHESIZE -c $MEMCACHED_MAXCONN -P ${MEMCACHEDPIDFILE} $MEMCACHED_FLAGS
+        [ $? -eq 0 ] && touch /var/lock/subsys/eucaconsole-memcached
         echo
     fi
 
@@ -81,6 +98,15 @@ stop() {
         [ $? -eq 0 ] && rm /var/lock/subsys/eucaconsole-nginx
     fi
     echo
+    if [ "x$MEMCACHED_FLAGS" != xNO ]; then
+        echo -n "Stopping eucaconsole memcached: "
+        killproc -p ${MEMCACHEDPIDFILE} /usr/bin/memcached
+        RETVAL=$?
+        if [ $RETVAL -eq 0 ] ; then
+            rm -f /var/lock/subsys/eucaconsole-memcached ${MEMCACHEDPIDFILE}
+        fi
+        echo
+    fi
     echo -n $"Stopping $SERVICE: "
     killproc -p $PIDFILE $PROCESS
     RETVAL=$?

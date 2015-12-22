@@ -80,6 +80,7 @@ Requires:       python-dateutil
 Requires:       python-python-magic
 Requires:       python-simplejson
 Requires:       nginx
+Requires:       memcached
 
 # EPEL 6
 Requires:       m2crypto
@@ -143,6 +144,7 @@ install -m 755 %{name}.py $RPM_BUILD_ROOT/usr/bin/%{name}
 install -d $RPM_BUILD_ROOT/etc/%{name}
 install -m 755 conf/console.default.ini $RPM_BUILD_ROOT/etc/%{name}/console.ini
 install -m 755 conf/nginx.conf $RPM_BUILD_ROOT/etc/%{name}/nginx.conf
+install -m 755 conf/memcached $RPM_BUILD_ROOT/etc/%{name}/memcached
 
 # Install dir for pidfile
 install -d $RPM_BUILD_ROOT/var/run/eucaconsole
@@ -165,7 +167,6 @@ install -m 644 %{SOURCE3} $RPM_BUILD_ROOT/%_sysconfdir/sysconfig/%{name}
 
 %files -f %{name}.lang
 %doc README.rst
-%doc conf/memcached
 %{python_sitelib}/*
 /usr/share/%{name}
 %config(noreplace) /etc/%{name}
@@ -199,6 +200,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Tue Dec 22 2015 David Kavanagh <dak@hpe.com> - 4.2.1
+- Install and manage memcached for use by eucaconsole
+
 * Mon Dec  7 2015 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.2.1
 - Version bump (4.2.1)
 
