@@ -53,7 +53,7 @@ BuildRequires:  python-boto >= 2.34.0
 BuildRequires:  python-chameleon >= 2.5.3
 BuildRequires:  python-crypto
 BuildRequires:  python-dateutil
-BuildRequires:  python-gevent1
+BuildRequires:  python-gevent
 BuildRequires:  python-greenlet >= 0.3.1
 BuildRequires:  python-gunicorn
 BuildRequires:  python-nose
@@ -77,7 +77,7 @@ Requires:       coreutils >= 8.4-22
 Requires:       openssl%{?_isa} >= 1.0.1e-16
 Requires:       python-crypto
 Requires:       python-dateutil
-Requires:       python-python-magic
+Requires:       python-magic
 Requires:       python-simplejson
 Requires:       nginx
 Requires:       memcached
@@ -91,14 +91,13 @@ Requires:       python-greenlet >= 0.3.1
 Requires:       python-gunicorn
 Requires:       python-defusedxml
 
-# When switching to python-pyramid 1.5 add a dep on python-pyramid-chameleon
-Requires:       python-pyramid < 1.5
+Requires:       python-pyramid
 Requires:       python-wtforms
 
 # Euca packaged
 # python-beaker15-1.5.4-8.4 backported support for HttpOnly flags
-Requires:       python-beaker15 >= 1.5.4-8.4
-Requires:       python-gevent1
+Requires:       python-beaker17
+Requires:       python-gevent
 Requires:       python-pylibmc
 Requires:       python-pyramid-beaker
 Requires:       python-pyramid-chameleon
@@ -200,6 +199,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Thu Jan 28 2016 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.3.0
+- update dependencies for RHEL 7
+
 * Tue Dec 22 2015 David Kavanagh <dak@hpe.com> - 4.2.1
 - Install and manage memcached for use by eucaconsole
 
