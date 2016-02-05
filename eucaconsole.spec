@@ -53,7 +53,11 @@ BuildRequires:  python-boto >= 2.34.0
 BuildRequires:  python-chameleon >= 2.5.3
 BuildRequires:  python-crypto
 BuildRequires:  python-dateutil
+%if 0%{?el6}
 BuildRequires:  python-gevent1
+%else
+BuildRequires:  python-gevent
+%endif
 BuildRequires:  python-greenlet >= 0.3.1
 BuildRequires:  python-gunicorn
 BuildRequires:  python-nose
@@ -68,7 +72,7 @@ BuildRequires:  python-simplejson
 BuildRequires:  python-wtforms
 BuildRequires:  python2-devel
 
-# RHEL 6
+# RHEL 6 or 7
 Requires:       mailcap
 # Add support for ``dd status=none''
 # https://bugzilla.redhat.com/show_bug.cgi?id=965654
@@ -77,12 +81,16 @@ Requires:       coreutils >= 8.4-22
 Requires:       openssl%{?_isa} >= 1.0.1e-16
 Requires:       python-crypto
 Requires:       python-dateutil
+%if 0%{?el6}
 Requires:       python-python-magic
+%else
+Requires:       python-magic
+%endif
 Requires:       python-simplejson
 Requires:       nginx
 Requires:       memcached
 
-# EPEL 6
+# EPEL 6 or 7
 Requires:       m2crypto
 Requires:       python-boto >= 2.34.0
 Requires:       python-chameleon >= 2.5.3
@@ -91,14 +99,24 @@ Requires:       python-greenlet >= 0.3.1
 Requires:       python-gunicorn
 Requires:       python-defusedxml
 
+%if 0%{?el6}
 # When switching to python-pyramid 1.5 add a dep on python-pyramid-chameleon
 Requires:       python-pyramid < 1.5
+%else
+Requires:       python-pyramid
+%endif
 Requires:       python-wtforms
 
 # Euca packaged
+%if 0%{?el6}
 # python-beaker15-1.5.4-8.4 backported support for HttpOnly flags
 Requires:       python-beaker15 >= 1.5.4-8.4
 Requires:       python-gevent1
+%else
+Requires:       python-beaker17
+# python-gevent is actually in epel-extras or rhel-server-extras
+Requires:       python-gevent
+%endif
 Requires:       python-pylibmc
 Requires:       python-pyramid-beaker
 Requires:       python-pyramid-chameleon
@@ -200,6 +218,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Fri Feb 5 2016 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.2.2 & 4.3.0
+- update dependencies for RHEL 7 (but add conditionals to allow building on el6)
+
 * Tue Dec 22 2015 David Kavanagh <dak@hpe.com> - 4.2.1
 - Install and manage memcached for use by eucaconsole
 
