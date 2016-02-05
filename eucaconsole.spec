@@ -81,11 +81,7 @@ Requires:       coreutils >= 8.4-22
 Requires:       openssl%{?_isa} >= 1.0.1e-16
 Requires:       python-crypto
 Requires:       python-dateutil
-%if 0%{?el6}
 Requires:       python-python-magic
-%else
-Requires:       python-magic
-%endif
 Requires:       python-simplejson
 Requires:       nginx
 Requires:       memcached
@@ -114,7 +110,7 @@ Requires:       python-beaker15 >= 1.5.4-8.4
 Requires:       python-gevent1
 %else
 Requires:       python-beaker17
-# python-gevent is actually in epel-extras or rhel-server-extras
+# python-gevent is actually in centos-extras or rhel-server-extras
 Requires:       python-gevent
 %endif
 Requires:       python-pylibmc
