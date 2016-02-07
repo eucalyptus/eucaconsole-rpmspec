@@ -1,7 +1,7 @@
 #!/usr/bin/python -tt
 import sys
-sys.path.insert(0, '/usr/lib/python2.6/site-packages/zope.interface-4.0.4-py2.6-linux-x86_64.egg/')
-sys.path.insert(0, '/usr/lib/python2.6/site-packages/Beaker-1.5.4-py2.6.egg/')
+sys.path.insert(0, '/usr/lib/python2.7/site-packages/Beaker-1.7.0-py2.7.egg')
+sys.path.insert(0, '/usr/lib64/python2.7/site-packages/gevent')
 from pkg_resources import load_entry_point
 
 
@@ -71,7 +71,7 @@ def cleanpid(signum=None, action=None):
 def start_console():
     args = ['pserve', config_file]
     sys.exit(
-        load_entry_point('pyramid==1.4', 'console_scripts', 'pserve')(args)
+        load_entry_point('pyramid', 'console_scripts', 'pserve')(args)
     )
 
 
