@@ -43,6 +43,8 @@ Source2:        %{name}
 Source3:        %{name}.sysconfig
 
 Patch0:         console.default.ini.patch
+Patch1:         gevent.patch
+Patch2:         eucaconsole.requires.patch
 
 BuildArch:      noarch
 
@@ -98,6 +100,7 @@ Requires:       python-defusedxml
 %if 0%{?el6}
 # When switching to python-pyramid 1.5 add a dep on python-pyramid-chameleon
 Requires:       python-pyramid < 1.5
+Requires:	python-zope-interface4
 %else
 Requires:       python-pyramid
 %endif
@@ -137,6 +140,12 @@ It also works with Amazon Web Services.
 cp -p %{SOURCE1} .
 cp -p %{SOURCE2} %{name}.py
 %patch0 -p0 -F3
+%if 0%{?el7}
+%patch1 -p0 -F3
+%endif
+%if 0%{?el6}
+%patch2 -p0 -F3
+%endif
 
 %build
 python2 setup.py build

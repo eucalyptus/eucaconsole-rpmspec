@@ -1,0 +1,12 @@
+--- eucaconsole.py	2016-03-08 16:36:04.494005414 -0500
++++ eucaconsole.py	2016-03-08 16:36:33.532005370 -0500
+@@ -1,7 +1,8 @@
+ #!/usr/bin/python -tt
++__requires__ = ['pyramid>=1.4', 'zope.interface>=4.0.4', 'beaker>=1.5.4']
+ import sys
+ from pkg_resources import load_entry_point
+-sys.path.insert(0, '/usr/lib/python2.7/site-packages/Beaker-1.7.0-py2.7.egg')
++sys.path.insert(0, '/usr/lib/python2.6/site-packages/Beaker-1.5.4-py2.6.egg/')
+ 
+ # EUCA-5030 is solved by clearning this environment variable immediately.
+ # this prevents boto from printing a warning if this env variable isn't set to a valid path
