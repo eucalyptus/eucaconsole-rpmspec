@@ -1,4 +1,4 @@
-# Copyright 2012-2015 Eucalyptus Systems, Inc.
+# Copyright 2012-2016 Eucalyptus Systems, Inc.
 #
 # Redistribution and use of this software in source and binary forms, with or
 # without modification, are permitted provided that the following conditions
@@ -42,9 +42,9 @@ Source1:        %{name}.init
 Source2:        %{name}
 Source3:        %{name}.sysconfig
 
-Patch0:         console.default.ini.patch
-Patch1:         gevent.patch
-Patch2:         eucaconsole.requires.patch
+Patch0:         %{name}.default.ini.patch
+Patch1:         %{name}.gevent.patch
+Patch2:         %{name}.requires.patch
 
 BuildArch:      noarch
 
