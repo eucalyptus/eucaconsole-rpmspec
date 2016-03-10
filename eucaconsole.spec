@@ -43,8 +43,7 @@ Source2:        %{name}
 Source3:        %{name}.sysconfig
 
 Patch0:         %{name}.default.ini.patch
-Patch1:         %{name}.gevent.patch
-Patch2:         %{name}.requires.patch
+Patch1:         %{name}.requires.patch
 
 BuildArch:      noarch
 
@@ -55,11 +54,7 @@ BuildRequires:  python-boto >= 2.34.0
 BuildRequires:  python-chameleon >= 2.5.3
 BuildRequires:  python-crypto
 BuildRequires:  python-dateutil
-%if 0%{?el6}
-BuildRequires:  python-gevent1
-%else
-BuildRequires:  python-gevent
-%endif
+BuildRequires:  python-eventlet >= 0.15.2
 BuildRequires:  python-greenlet >= 0.3.1
 BuildRequires:  python-gunicorn
 BuildRequires:  python-nose
@@ -96,6 +91,7 @@ Requires:       python-dogpile-cache
 Requires:       python-greenlet >= 0.3.1
 Requires:       python-gunicorn
 Requires:       python-defusedxml
+Requires:       python-eventlet >= 0.15.2
 
 %if 0%{?el6}
 # When switching to python-pyramid 1.5 add a dep on python-pyramid-chameleon
@@ -110,11 +106,8 @@ Requires:       python-wtforms
 %if 0%{?el6}
 # python-beaker15-1.5.4-8.4 backported support for HttpOnly flags
 Requires:       python-beaker15 >= 1.5.4-8.4
-Requires:       python-gevent1
 %else
 Requires:       python-beaker17
-# python-gevent is actually in centos-extras or rhel-server-extras
-Requires:       python-gevent
 %endif
 Requires:       python-pylibmc
 Requires:       python-pyramid-beaker
@@ -140,11 +133,8 @@ It also works with Amazon Web Services.
 cp -p %{SOURCE1} .
 cp -p %{SOURCE2} %{name}.py
 %patch0 -p0 -F3
-%if 0%{?el7}
-%patch1 -p0 -F3
-%endif
 %if 0%{?el6}
-%patch2 -p0 -F3
+%patch1 -p0 -F3
 %endif
 
 %build
