@@ -213,6 +213,10 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Thu Mar 10 2016 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.2.2 & 4.3.0
+- replace gevent with eventlet
+- rename patch files, prefix with eucaconsole
+
 * Fri Feb 5 2016 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.2.2 & 4.3.0
 - update dependencies for RHEL 7 (but add conditionals to allow building on el6)
 
