@@ -1,9 +1,7 @@
 #!/usr/bin/python -tt
 import sys
-sys.path.insert(0, '/usr/lib/python2.6/site-packages/zope.interface-4.0.4-py2.6-linux-x86_64.egg/')
-sys.path.insert(0, '/usr/lib/python2.6/site-packages/Beaker-1.5.4-py2.6.egg/')
 from pkg_resources import load_entry_point
-
+sys.path.insert(0, '/usr/lib/python2.7/site-packages/Beaker-1.7.0-py2.7.egg')
 
 # EUCA-5030 is solved by clearning this environment variable immediately.
 # this prevents boto from printing a warning if this env variable isn't set to a valid path
@@ -71,7 +69,7 @@ def cleanpid(signum=None, action=None):
 def start_console():
     args = ['pserve', config_file]
     sys.exit(
-        load_entry_point('pyramid==1.4', 'console_scripts', 'pserve')(args)
+        load_entry_point('pyramid', 'console_scripts', 'pserve')(args)
     )
 
 

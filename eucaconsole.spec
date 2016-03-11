@@ -1,4 +1,4 @@
-# Copyright 2012-2015 Eucalyptus Systems, Inc.
+# Copyright 2012-2016 Eucalyptus Systems, Inc.
 #
 # Redistribution and use of this software in source and binary forms, with or
 # without modification, are permitted provided that the following conditions
@@ -42,7 +42,8 @@ Source1:        %{name}.init
 Source2:        %{name}
 Source3:        %{name}.sysconfig
 
-Patch0:         console.default.ini.patch
+Patch0:         %{name}.default.ini.patch
+Patch1:         %{name}.requires.patch
 
 BuildArch:      noarch
 
@@ -53,11 +54,7 @@ BuildRequires:  python-boto >= 2.34.0
 BuildRequires:  python-chameleon >= 2.5.3
 BuildRequires:  python-crypto
 BuildRequires:  python-dateutil
-%if 0%{?el6}
-BuildRequires:  python-gevent1
-%else
-BuildRequires:  python-gevent
-%endif
+BuildRequires:  python-eventlet >= 0.15.2
 BuildRequires:  python-greenlet >= 0.3.1
 BuildRequires:  python-gunicorn
 BuildRequires:  python-nose
@@ -94,10 +91,12 @@ Requires:       python-dogpile-cache
 Requires:       python-greenlet >= 0.3.1
 Requires:       python-gunicorn
 Requires:       python-defusedxml
+Requires:       python-eventlet >= 0.15.2
 
 %if 0%{?el6}
 # When switching to python-pyramid 1.5 add a dep on python-pyramid-chameleon
 Requires:       python-pyramid < 1.5
+Requires:	python-zope-interface4
 %else
 Requires:       python-pyramid
 %endif
@@ -107,11 +106,8 @@ Requires:       python-wtforms
 %if 0%{?el6}
 # python-beaker15-1.5.4-8.4 backported support for HttpOnly flags
 Requires:       python-beaker15 >= 1.5.4-8.4
-Requires:       python-gevent1
 %else
 Requires:       python-beaker17
-# python-gevent is actually in centos-extras or rhel-server-extras
-Requires:       python-gevent
 %endif
 Requires:       python-pylibmc
 Requires:       python-pyramid-beaker
@@ -137,6 +133,9 @@ It also works with Amazon Web Services.
 cp -p %{SOURCE1} .
 cp -p %{SOURCE2} %{name}.py
 %patch0 -p0 -F3
+%if 0%{?el6}
+%patch1 -p0 -F3
+%endif
 
 %build
 python2 setup.py build
@@ -214,6 +213,10 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Thu Mar 10 2016 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.2.2 & 4.3.0
+- replace gevent with eventlet
+- rename patch files, prefix with eucaconsole
+
 * Fri Feb 5 2016 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.2.2 & 4.3.0
 - update dependencies for RHEL 7 (but add conditionals to allow building on el6)
 
