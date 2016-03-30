@@ -41,6 +41,7 @@ Source0:        %{tarball_basedir}.tar.xz
 Source1:        %{name}.init
 Source2:        %{name}
 Source3:        %{name}.sysconfig
+Source4:        %{name}.tmpfiles
 
 Patch0:         %{name}.default.ini.patch
 Patch1:         %{name}.requires.patch
@@ -159,8 +160,12 @@ install -m 755 conf/console.default.ini $RPM_BUILD_ROOT/etc/%{name}/console.ini
 install -m 755 conf/nginx.conf $RPM_BUILD_ROOT/etc/%{name}/nginx.conf
 install -m 755 conf/memcached $RPM_BUILD_ROOT/etc/%{name}/memcached
 
-# Install dir for pidfile
-install -d $RPM_BUILD_ROOT/var/run/eucaconsole
+# Install /run/eucaconsole for PID file and other data
+install -d -m 0755 $RPM_BUILD_ROOT/var/run/eucaconsole
+%if ! 0%{?el6}
+mkdir -p $RPM_BUILD_ROOT/%{_tmpfilesdir}
+install %{SOURCE4} $RPM_BUILD_ROOT/%{_tmpfilesdir}/%{name}.conf
+%endif
 
 # Create log file
 install -d $RPM_BUILD_ROOT/var/log
@@ -213,11 +218,14 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
-* Thu Mar 10 2016 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.2.2 & 4.3.0
+* Wed Mar 30 2016 Garrett Holmstrom <gholms@hpe.com> - 4.3.0
+- Added tmpfiles.d (GUI-2455)
+
+* Thu Mar 10 2016 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.2.2
 - replace gevent with eventlet
 - rename patch files, prefix with eucaconsole
 
-* Fri Feb 5 2016 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.2.2 & 4.3.0
+* Fri Feb 5 2016 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.2.2
 - update dependencies for RHEL 7 (but add conditionals to allow building on el6)
 
 * Tue Dec 22 2015 David Kavanagh <dak@hpe.com> - 4.2.1
