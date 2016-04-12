@@ -36,7 +36,7 @@ Summary:        Eucalyptus Management Console
 # Bundled javascript is BSD and MIT
 # Bundled "Play" font is OFL
 License:        BSD and MIT and OFL
-URL:            http://github.com/eucalyptus/eucaconsole
+URL:            https://github.com/eucalyptus/eucaconsole
 Source0:        %{tarball_basedir}.tar.xz
 Source1:        %{name}.init
 Source2:        %{name}
@@ -50,8 +50,8 @@ BuildArch:      noarch
 
 BuildRequires:  gettext
 BuildRequires:  m2crypto
-#BuildRequires:  python-beaker15
-BuildRequires:  python-boto >= 2.34.0
+BuildRequires:  python2-devel
+BuildRequires:  python2-boto >= 2.34.0
 BuildRequires:  python-chameleon >= 2.5.3
 BuildRequires:  python-crypto
 BuildRequires:  python-dateutil
@@ -65,71 +65,58 @@ BuildRequires:  python-pyramid
 #BuildRequires:  python-pyramid-beaker
 #BuildRequires:  python-pyramid-chameleon
 #BuildRequires:  python-pyramid-layout
-BuildRequires:  python-setuptools-devel
+BuildRequires:  python-setuptools
 BuildRequires:  python-simplejson
 BuildRequires:  python-wtforms
-BuildRequires:  python2-devel
 %if ! 0%{?el6}
 BuildRequires:  systemd
 %endif
 
-# RHEL 6 or 7
-Requires:       mailcap
 # Add support for ``dd status=none''
 # https://bugzilla.redhat.com/show_bug.cgi?id=965654
 Requires:       coreutils >= 8.4-22
+Requires:       mailcap
 # Required for proper login functionality
 Requires:       openssl%{?_isa} >= 1.0.1e-16
-Requires:       python-crypto
-Requires:       python-dateutil
-Requires:       python-python-magic
-Requires:       python-simplejson
-Requires:       nginx
-Requires:       memcached
-
-# EPEL 6 or 7
-Requires:       m2crypto
 Requires:       python-boto >= 2.34.0
 Requires:       python-chameleon >= 2.5.3
+Requires:       python-crypto
+Requires:       python-dateutil
+Requires:       python-defusedxml
 Requires:       python-dogpile-cache
+Requires:       python-eventlet >= 0.15.2
 Requires:       python-greenlet >= 0.3.1
 Requires:       python-gunicorn
-Requires:       python-defusedxml
-Requires:       python-eventlet >= 0.15.2
-
-%if 0%{?el6}
-# When switching to python-pyramid 1.5 add a dep on python-pyramid-chameleon
-Requires:       python-pyramid < 1.5
-Requires:	python-zope-interface4
-%else
-Requires:       python-pyramid
-%endif
-Requires:       python-wtforms
-
-# Euca packaged
-%if 0%{?el6}
-# python-beaker15-1.5.4-8.4 backported support for HttpOnly flags
-Requires:       python-beaker15 >= 1.5.4-8.4
-%else
-Requires:       python-beaker17
-%endif
 Requires:       python-pylibmc
 Requires:       python-pyramid-beaker
 Requires:       python-pyramid-chameleon
 Requires:       python-pyramid-layout
+Requires:       python-python-magic
+Requires:       python-simplejson
+Requires:       python-wtforms
+Requires:       m2crypto
+Requires:       memcached
+Requires:       nginx
+%if 0%{?el6}
+# python-beaker15-1.5.4-8.4 backported support for HttpOnly flags
+Requires:       python-beaker15 >= 1.5.4-8.4
+# When switching to python-pyramid 1.5 add a dep on python-pyramid-chameleon
+Requires:       python-pyramid < 1.5
+Requires:       python-zope-interface4
+%else
+Requires:       python-beaker17
+Requires:       python-pyramid
+%endif
 
-# pushing these to after 4.0
 # TODO:  patch config to write to syslog
 # TODO:  ship a syslog config file
 # TODO:  move static content to /usr/share/%{name}
 # TODO:  change the nginx config to point to new location for static content
 
-Obsoletes:      eucalyptus-console < 4.0
-
 
 %description
-This package contains the web UI for the Eucalyptus cloud platform.
-It also works with Amazon Web Services.
+The Eucalyptus Management Console is a web-based interface to a local
+Eucalyptus cloud and/or AWS services.
 
 
 %prep
@@ -226,6 +213,8 @@ fi
 %changelog
 * Tue Apr 12 2016 Garrett Holmstrom <gholms@hpe.com> - 4.3.0
 - Fixed file list and BuildRequires
+- Reorganized Requires/BuildRequires
+- Removed Obsoletes: eucalyptus-console < 4.0
 
 * Wed Mar 30 2016 Garrett Holmstrom <gholms@hpe.com> - 4.3.0
 - Added tmpfiles.d (GUI-2455)
