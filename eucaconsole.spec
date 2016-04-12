@@ -69,6 +69,9 @@ BuildRequires:  python-setuptools-devel
 BuildRequires:  python-simplejson
 BuildRequires:  python-wtforms
 BuildRequires:  python2-devel
+%if ! 0%{?el6}
+BuildRequires:  systemd
+%endif
 
 # RHEL 6 or 7
 Requires:       mailcap
@@ -191,6 +194,9 @@ install -m 644 %{SOURCE3} $RPM_BUILD_ROOT/%_sysconfdir/sysconfig/%{name}
 %{_bindir}/%{name}
 /etc/init.d/%{name}
 %config(noreplace) /etc/sysconfig/%{name}
+%if ! 0%{?el6}
+%{_tmpfilesdir}/%{name}.conf
+%endif
 %attr(-,eucaconsole,eucaconsole) %dir /var/run/%{name}
 %attr(-,eucaconsole,eucaconsole) /var/log/%{name}.log
 %attr(-,eucaconsole,eucaconsole) /var/log/%{name}_startup.log
@@ -218,6 +224,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Tue Apr 12 2016 Garrett Holmstrom <gholms@hpe.com> - 4.3.0
+- Fixed file list and BuildRequires
+
 * Wed Mar 30 2016 Garrett Holmstrom <gholms@hpe.com> - 4.3.0
 - Added tmpfiles.d (GUI-2455)
 
