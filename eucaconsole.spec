@@ -53,7 +53,7 @@ BuildRequires:  m2crypto
 BuildRequires:  python2-devel
 BuildRequires:  python2-boto >= 2.34.0
 BuildRequires:  python-chameleon >= 2.5.3
-BuildRequires:  python-crypto
+BuildRequires:  pycryptopp >= 0.6
 BuildRequires:  python-dateutil
 BuildRequires:  python-eventlet >= 0.15.2
 BuildRequires:  python-greenlet >= 0.3.1
@@ -78,9 +78,10 @@ Requires:       coreutils >= 8.4-22
 Requires:       mailcap
 # Required for proper login functionality
 Requires:       openssl%{?_isa} >= 1.0.1e-16
+Requires:       python-beaker18
 Requires:       python-boto >= 2.34.0
 Requires:       python-chameleon >= 2.5.3
-Requires:       python-crypto
+Requires:       pycryptopp >= 0.6
 Requires:       python-dateutil
 Requires:       python-defusedxml
 Requires:       python-dogpile-cache
@@ -90,22 +91,21 @@ Requires:       python-gunicorn
 Requires:       python-pylibmc
 Requires:       python-pyramid-beaker
 Requires:       python-pyramid-chameleon
-Requires:       python-pyramid-layout
 Requires:       python-python-magic
 Requires:       python-simplejson
 Requires:       python-wtforms
 Requires:       m2crypto
 Requires:       memcached
 Requires:       nginx
+Requires:       python2-funcsigs
 %if 0%{?el6}
-# python-beaker15-1.5.4-8.4 backported support for HttpOnly flags
-Requires:       python-beaker15 >= 1.5.4-8.4
 # When switching to python-pyramid 1.5 add a dep on python-pyramid-chameleon
 Requires:       python-pyramid < 1.5
+Requires:       python-pyramid-layout <= 0.8
 Requires:       python-zope-interface4
 %else
-Requires:       python-beaker17
 Requires:       python-pyramid
+Requires:       python-pyramid-layout
 %endif
 
 # TODO:  patch config to write to syslog
@@ -211,6 +211,13 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Wed May  4 2016 Matt Bacchi <mbacchi@hpe.com> - 4.3.0
+- Update beaker requirement to 1.8 (GUI-2429)
+- Add python2-funcsigs requirement (dragged in by beaker 1.8)
+- Replace python-crypto with pycryptopp (GUI-1659)
+- python-pyramid-layout updated to 1.0 on el7, cannot update on el6 because
+- python-pyramid 1.4 is the latest available in epel6 repo
+
 * Tue Apr 12 2016 Garrett Holmstrom <gholms@hpe.com> - 4.3.0
 - Fixed file list and BuildRequires
 - Reorganized Requires/BuildRequires
