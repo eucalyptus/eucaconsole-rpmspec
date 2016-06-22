@@ -67,7 +67,7 @@ def cleanpid(signum=None, action=None):
 
 
 def start_console():
-    args = ['pserve', config_file]
+    args = ['pserve', config_file, 'worker_class=eventlet']
     sys.exit(
         load_entry_point('pyramid', 'console_scripts', 'pserve')(args)
     )
