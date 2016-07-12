@@ -104,6 +104,7 @@ Requires:       python-pyramid < 1.5
 Requires:       python-pyramid-layout <= 0.8
 Requires:       python-zope-interface4
 %else
+Requires:       eucaconsole-selinux
 Requires:       python-pyramid
 Requires:       python-pyramid-layout
 %endif
@@ -211,6 +212,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Tue Jul 12 2016 Garrett Holmstrom <gholms@hpe.com> - 4.3.0
+- Added eucaconsole-selinux dependency
+
 * Wed May  4 2016 Matt Bacchi <mbacchi@hpe.com> - 4.3.0
 - Update beaker requirement to 1.8 (GUI-2429)
 - Add python2-funcsigs requirement (dragged in by beaker 1.8)
