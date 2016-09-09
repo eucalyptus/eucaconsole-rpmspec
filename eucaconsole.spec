@@ -55,6 +55,7 @@ BuildRequires:  python2-devel
 BuildRequires:  python-eventlet >= 0.15.2
 BuildRequires:  python-greenlet >= 0.3.1
 BuildRequires:  python-gunicorn
+BuildRequires:  python-lxml
 BuildRequires:  python-nose
 BuildRequires:  python-pygments
 BuildRequires:  python-pylibmc
@@ -82,6 +83,7 @@ Requires:       python-eventlet >= 0.15.2
 Requires:       python2-funcsigs
 Requires:       python-greenlet >= 0.3.1
 Requires:       python-gunicorn
+Requires:       python-lxml
 Requires:       python-pylibmc
 Requires:       python-pyramid
 Requires:       python-pyramid-beaker
@@ -193,6 +195,7 @@ fi
 %changelog
 * Fri Sep  9 2016 Garrett Holmstrom <gholms@hpe.com> - 4.4.0
 - Removed el6 support
+- Added python-lxml dependency (GUI-2753)
 
 * Tue Aug 9 2016 Matt Bacchi <mbacchi@hpe.com> - 4.3.0
 - Version bump (4.3.0)
