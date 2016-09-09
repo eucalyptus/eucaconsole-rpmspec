@@ -1,4 +1,4 @@
-# Copyright 2012-2016 Eucalyptus Systems, Inc.
+# Copyright (c) 2012-2016 Hewlett Packard Enterprise Development LP
 #
 # Redistribution and use of this software in source and binary forms, with or
 # without modification, are permitted provided that the following conditions
@@ -25,8 +25,6 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
-
 Name:           eucaconsole
 Version:        4.3.0
 Release:        0%{?build_id:.%build_id}%{?dist}
@@ -44,17 +42,16 @@ Source3:        %{name}.sysconfig
 Source4:        %{name}.tmpfiles
 
 Patch0:         %{name}.default.ini.patch
-Patch1:         %{name}.requires.patch
 
 BuildArch:      noarch
 
 BuildRequires:  gettext
 BuildRequires:  m2crypto
-BuildRequires:  python2-devel
+BuildRequires:  pycryptopp >= 0.6
 BuildRequires:  python2-boto >= 2.34.0
 BuildRequires:  python-chameleon >= 2.5.3
-BuildRequires:  pycryptopp >= 0.6
 BuildRequires:  python-dateutil
+BuildRequires:  python2-devel
 BuildRequires:  python-eventlet >= 0.15.2
 BuildRequires:  python-greenlet >= 0.3.1
 BuildRequires:  python-gunicorn
@@ -62,52 +59,40 @@ BuildRequires:  python-nose
 BuildRequires:  python-pygments
 BuildRequires:  python-pylibmc
 BuildRequires:  python-pyramid
-#BuildRequires:  python-pyramid-beaker
-#BuildRequires:  python-pyramid-chameleon
-#BuildRequires:  python-pyramid-layout
 BuildRequires:  python-setuptools
 BuildRequires:  python-simplejson
 BuildRequires:  python-wtforms
-%if ! 0%{?el6}
 BuildRequires:  systemd
-%endif
 
 # Add support for ``dd status=none''
 # https://bugzilla.redhat.com/show_bug.cgi?id=965654
 Requires:       coreutils >= 8.4-22
+Requires:       eucaconsole-selinux
 Requires:       mailcap
 # Required for proper login functionality
-Requires:       openssl%{?_isa} >= 1.0.1e-16
+Requires:       openssl >= 1.0.1e-16
+Requires:       pycryptopp >= 0.6
 Requires:       python-beaker18
 Requires:       python-boto >= 2.34.0
 Requires:       python-chameleon >= 2.5.3
-Requires:       pycryptopp >= 0.6
 Requires:       python-dateutil
 Requires:       python-defusedxml
 Requires:       python-dogpile-cache
 Requires:       python-eventlet >= 0.15.2
+Requires:       python2-funcsigs
 Requires:       python-greenlet >= 0.3.1
 Requires:       python-gunicorn
 Requires:       python-pylibmc
+Requires:       python-pyramid
 Requires:       python-pyramid-beaker
 Requires:       python-pyramid-chameleon
+Requires:       python-pyramid-layout
 Requires:       python-python-magic
 Requires:       python-simplejson
 Requires:       python-wtforms
 Requires:       m2crypto
 Requires:       memcached
 Requires:       nginx
-Requires:       python2-funcsigs
-%if 0%{?el6}
-# When switching to python-pyramid 1.5 add a dep on python-pyramid-chameleon
-Requires:       python-pyramid < 1.5
-Requires:       python-pyramid-layout <= 0.8
-Requires:       python-zope-interface4
-%else
-Requires:       eucaconsole-selinux
-Requires:       python-pyramid
-Requires:       python-pyramid-layout
-%endif
 
 # TODO:  patch config to write to syslog
 # TODO:  ship a syslog config file
@@ -125,9 +110,7 @@ Eucalyptus cloud and/or AWS services.
 cp -p %{SOURCE1} .
 cp -p %{SOURCE2} %{name}.py
 %patch0 -p0 -F3
-%if 0%{?el6}
-%patch1 -p0 -F3
-%endif
+
 
 %build
 python2 setup.py build
@@ -153,10 +136,8 @@ install -m 755 conf/memcached $RPM_BUILD_ROOT/etc/%{name}/memcached
 
 # Install /run/eucaconsole for PID file and other data
 install -d -m 0755 $RPM_BUILD_ROOT/var/run/eucaconsole
-%if ! 0%{?el6}
 mkdir -p $RPM_BUILD_ROOT/%{_tmpfilesdir}
 install %{SOURCE4} $RPM_BUILD_ROOT/%{_tmpfilesdir}/%{name}.conf
-%endif
 
 # Create log file
 install -d $RPM_BUILD_ROOT/var/log
@@ -182,9 +163,7 @@ install -m 644 %{SOURCE3} $RPM_BUILD_ROOT/%_sysconfdir/sysconfig/%{name}
 %{_bindir}/%{name}
 /etc/init.d/%{name}
 %config(noreplace) /etc/sysconfig/%{name}
-%if ! 0%{?el6}
 %{_tmpfilesdir}/%{name}.conf
-%endif
 %attr(-,eucaconsole,eucaconsole) %dir /var/run/%{name}
 %attr(-,eucaconsole,eucaconsole) /var/log/%{name}.log
 %attr(-,eucaconsole,eucaconsole) /var/log/%{name}_startup.log
@@ -212,6 +191,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Fri Sep  9 2016 Garrett Holmstrom <gholms@hpe.com> - 4.4.0
+- Removed el6 support
+
 * Tue Aug 9 2016 Matt Bacchi <mbacchi@hpe.com> - 4.3.0
 - Version bump (4.3.0)
 
