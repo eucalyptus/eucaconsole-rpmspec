@@ -34,7 +34,7 @@ Summary:        Eucalyptus Management Console
 # Bundled javascript is BSD and MIT
 # Bundled "Play" font is OFL
 # various artwork is CC-BY-SA
-License:        BSD and MIT and OFL and CC-BY-SA
+License:        BSD and CC-BY-SA and MIT and OFL
 URL:            https://github.com/eucalyptus/eucaconsole
 Source0:        %{tarball_basedir}.tar.xz
 Source1:        %{name}.init
