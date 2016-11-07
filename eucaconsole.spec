@@ -49,7 +49,7 @@ BuildArch:      noarch
 BuildRequires:  gettext
 BuildRequires:  m2crypto
 BuildRequires:  pycryptopp >= 0.6
-BuildRequires:  python2-boto >= 2.34.0
+BuildRequires:  python2-boto >= 2.43.0
 BuildRequires:  python-chameleon >= 2.5.3
 BuildRequires:  python-dateutil
 BuildRequires:  python2-devel
@@ -75,7 +75,7 @@ Requires:       mailcap
 Requires:       openssl >= 1.0.1e-16
 Requires:       pycryptopp >= 0.6
 Requires:       python-beaker18
-Requires:       python-boto >= 2.34.0
+Requires:       python-boto >= 2.43.0
 Requires:       python-chameleon >= 2.5.3
 Requires:       python-dateutil
 Requires:       python-defusedxml
