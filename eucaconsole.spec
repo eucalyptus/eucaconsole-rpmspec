@@ -194,6 +194,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Mon Nov 7 2016 Kamal Gill <kamal.gill@hpe.com> - 4.4.0
+- Update python-boto minimum version to 2.43.0 (GUI-2806)
+
 * Fri Sep  9 2016 Garrett Holmstrom <gholms@hpe.com> - 4.4.0
 - Removed el6 support
 - Added python-lxml dependency (GUI-2753)
