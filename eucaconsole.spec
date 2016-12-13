@@ -28,7 +28,7 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
 
 Name:           eucaconsole
-Version:        4.3.0
+Version:        4.3.1
 Release:        0%{?build_id:.%build_id}%{?dist}
 Summary:        Eucalyptus Management Console
 
@@ -212,6 +212,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Tue Dec 13 2016 Matt Bacchi <mbacchi@hpe.com> - 4.3.1
+- Version bump (4.3.1)
+
 * Tue Aug 9 2016 Matt Bacchi <mbacchi@hpe.com> - 4.3.0
 - Version bump (4.3.0)
 
