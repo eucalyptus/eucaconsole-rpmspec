@@ -151,8 +151,8 @@ _EOF_
 }
 
 generate_cert() {
-    local key=/etc/eucaconsole/console.key
-    local cert=/etc/eucaconsole/console.crt
+    local key=/etc/pki/tls/private/console.key
+    local cert=/etc/pki/tls/certs/console.crt
 
     if [ -f $key ] && [ -f $cert ]; then
         return 1
