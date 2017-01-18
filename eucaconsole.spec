@@ -1,4 +1,4 @@
-# Copyright (c) 2012-2016 Hewlett Packard Enterprise Development LP
+# Copyright (c) 2012-2017 Hewlett Packard Enterprise Development LP
 #
 # Redistribution and use of this software in source and binary forms, with or
 # without modification, are permitted provided that the following conditions
@@ -50,6 +50,7 @@ BuildRequires:  gettext
 BuildRequires:  m2crypto
 BuildRequires:  pycryptopp >= 0.6
 BuildRequires:  python2-boto >= 2.43.0
+BuildRequires:  python2-botocore
 BuildRequires:  python-chameleon >= 2.5.3
 BuildRequires:  python-dateutil
 BuildRequires:  python2-devel
@@ -75,7 +76,8 @@ Requires:       mailcap
 Requires:       openssl >= 1.0.1e-16
 Requires:       pycryptopp >= 0.6
 Requires:       python-beaker18
-Requires:       python-boto >= 2.43.0
+Requires:       python2-boto >= 2.43.0
+Requires:       python2-botocore
 Requires:       python-chameleon >= 2.5.3
 Requires:       python-dateutil
 Requires:       python-defusedxml
@@ -194,14 +196,17 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
-* Mon Nov 7 2016 Kamal Gill <kamal.gill@hpe.com> - 4.4.0
+* Wed Jan 18 2016 Garrett Holmstrom <gholms@hpe.com> - 5.0.0
+- Added python2-botocore dependency (GUI-2862)
+
+* Mon Nov  7 2016 Kamal Gill <kamal.gill@hpe.com> - 4.4.0
 - Update python-boto minimum version to 2.43.0 (GUI-2806)
 
 * Fri Sep  9 2016 Garrett Holmstrom <gholms@hpe.com> - 4.4.0
 - Removed el6 support
 - Added python-lxml dependency (GUI-2753)
 
-* Tue Aug 9 2016 Matt Bacchi <mbacchi@hpe.com> - 4.3.0
+* Tue Aug  9 2016 Matt Bacchi <mbacchi@hpe.com> - 4.3.0
 - Version bump (4.3.0)
 
 * Tue Jul 12 2016 Garrett Holmstrom <gholms@hpe.com> - 4.3.0
