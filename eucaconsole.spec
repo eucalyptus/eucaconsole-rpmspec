@@ -196,7 +196,7 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
-* Wed Jan 18 2016 Garrett Holmstrom <gholms@hpe.com> - 5.0.0
+* Wed Jan 18 2017 Garrett Holmstrom <gholms@hpe.com> - 5.0.0
 - Added python2-botocore dependency (GUI-2862)
 
 * Mon Nov  7 2016 Kamal Gill <kamal.gill@hpe.com> - 4.4.0
