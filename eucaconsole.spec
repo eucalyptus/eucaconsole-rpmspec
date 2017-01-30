@@ -1,4 +1,4 @@
-# Copyright (c) 2012-2016 Hewlett Packard Enterprise Development LP
+# Copyright (c) 2012-2017 Hewlett Packard Enterprise Development LP
 #
 # Redistribution and use of this software in source and binary forms, with or
 # without modification, are permitted provided that the following conditions
@@ -71,10 +71,10 @@ BuildRequires:  systemd
 Requires:       coreutils >= 8.4-22
 Requires:       eucaconsole-selinux
 Requires:       mailcap
-# Required for proper login functionality
 Requires:       openssl >= 1.0.1e-16
 Requires:       pycryptopp >= 0.6
-Requires:       python-beaker18
+# This is an = because of the path encoded in /usr/bin/eucaconsole
+Requires:       python-beaker18 = 1.8.1
 Requires:       python-boto >= 2.43.0
 Requires:       python-chameleon >= 2.5.3
 Requires:       python-dateutil
@@ -194,6 +194,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Mon Jan 30 2017 Garrett Holmstrom <gholms@fedoraproject.org> - 4.3.0
+- Update beaker requirement to 1.8.1 (GUI-2845)
+
 * Mon Nov 7 2016 Kamal Gill <kamal.gill@hpe.com> - 4.4.0
 - Update python-boto minimum version to 2.43.0 (GUI-2806)
 
