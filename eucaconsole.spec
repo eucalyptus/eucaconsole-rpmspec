@@ -72,10 +72,10 @@ BuildRequires:  systemd
 Requires:       coreutils >= 8.4-22
 Requires:       eucaconsole-selinux
 Requires:       mailcap
-# Required for proper login functionality
 Requires:       openssl >= 1.0.1e-16
 Requires:       pycryptopp >= 0.6
-Requires:       python-beaker18
+# This is an = because of the path encoded in /usr/bin/eucaconsole
+Requires:       python-beaker18 = 1.8.1
 Requires:       python2-boto >= 2.43.0
 Requires:       python2-botocore
 Requires:       python-chameleon >= 2.5.3
@@ -196,6 +196,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Mon Jan 30 2017 Garrett Holmstrom <gholms@fedoraproject.org> - 4.3.0
+- Update beaker requirement to 1.8.1 (GUI-2845)
+
 * Wed Jan 18 2017 Garrett Holmstrom <gholms@hpe.com> - 5.0.0
 - Added python2-botocore dependency (GUI-2862)
 
