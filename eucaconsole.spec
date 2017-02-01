@@ -26,7 +26,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 Name:           eucaconsole
-Version:        4.3.0
+Version:        4.3.1
 Release:        0%{?build_id:.%build_id}%{?dist}
 Summary:        Eucalyptus Management Console
 
@@ -201,6 +201,9 @@ fi
 
 * Wed Jan 18 2017 Garrett Holmstrom <gholms@hpe.com> - 5.0.0
 - Added python2-botocore dependency (GUI-2862)
+
+* Tue Dec 13 2016 Matt Bacchi <mbacchi@hpe.com> - 4.3.1
+- Version bump (4.3.1)
 
 * Mon Nov  7 2016 Kamal Gill <kamal.gill@hpe.com> - 4.4.0
 - Update python-boto minimum version to 2.43.0 (GUI-2806)
