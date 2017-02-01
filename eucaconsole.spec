@@ -26,7 +26,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 Name:           eucaconsole
-Version:        4.3.0
+Version:        4.3.1
 Release:        0%{?build_id:.%build_id}%{?dist}
 Summary:        Eucalyptus Management Console
 
@@ -196,6 +196,9 @@ fi
 %changelog
 * Mon Jan 30 2017 Garrett Holmstrom <gholms@fedoraproject.org> - 4.3.0
 - Update beaker requirement to 1.8.1 (GUI-2845)
+
+* Tue Dec 13 2016 Matt Bacchi <mbacchi@hpe.com> - 4.3.1
+- Version bump (4.3.1)
 
 * Mon Nov 7 2016 Kamal Gill <kamal.gill@hpe.com> - 4.4.0
 - Update python-boto minimum version to 2.43.0 (GUI-2806)
