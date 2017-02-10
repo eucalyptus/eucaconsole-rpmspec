@@ -1,9 +1,0 @@
---- eucaconsole.py	2016-03-30 13:27:47.306905718 -0700
-+++ eucaconsole.py	2016-03-30 13:27:17.788862690 -0700
-@@ -1,7 +1,8 @@
- #!/usr/bin/python -tt
-+__requires__ = ['pyramid', 'zope.interface>=4.0.4', 'beaker']
- import sys
- from pkg_resources import load_entry_point
--sys.path.insert(0, '/usr/lib/python2.7/site-packages/Beaker-1.8.0-py2.7.egg')
-+sys.path.insert(0, '/usr/lib/python2.6/site-packages/Beaker-1.8.0-py2.6.egg/')
