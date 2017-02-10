@@ -26,7 +26,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 Name:           eucaconsole
-Version:        4.3.1
+Version:        5.0.0
 Release:        0%{?build_id:.%build_id}%{?dist}
 Summary:        Eucalyptus Management Console
 
@@ -196,6 +196,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Fri Feb 10 2017 Garrett Holmstrom <gholms@fedoraproject.org> - 5.0.0
+- Version bump (5.0.0)
+
 * Mon Jan 30 2017 Garrett Holmstrom <gholms@fedoraproject.org> - 4.3.0
 - Update beaker requirement to 1.8.1 (GUI-2845)
 
@@ -288,6 +291,7 @@ fi
 * Fri Aug 29 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.1.0
 - Added python-pylibmc dependency [GUI-1083]
 - Added python-magic dependency [GUI-1040]
+
 * Tue Jul  8 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.0.1-0
 - Switched to xz-compressed sources
 
