@@ -137,6 +137,7 @@ install -D /dev/null $RPM_BUILD_ROOT/var/log/%{name}.log
 
 
 %files -f %{name}.lang
+%license COPYING licenses
 %doc README.rst
 %config(noreplace) /etc/%{name}
 %{_bindir}/*
@@ -172,6 +173,7 @@ getent passwd eucaconsole >/dev/null || \
 * Fri Feb 10 2017 Garrett Holmstrom <gholms@fedoraproject.org> - 5.0.0
 - Version bump (5.0.0)
 - Ported to systemd (GUI-2869)
+- Added license files
 
 * Mon Jan 30 2017 Garrett Holmstrom <gholms@fedoraproject.org> - 4.3.0
 - Update beaker requirement to 1.8.1 (GUI-2845)
