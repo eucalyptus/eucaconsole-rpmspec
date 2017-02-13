@@ -26,7 +26,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 Name:           eucaconsole
-Version:        4.3.1
+Version:        5.0.0
 Release:        0%{?build_id:.%build_id}%{?dist}
 Summary:        Eucalyptus Management Console
 
@@ -37,12 +37,14 @@ Summary:        Eucalyptus Management Console
 License:        BSD and CC-BY-SA and MIT and OFL
 URL:            https://github.com/eucalyptus/eucaconsole
 Source0:        %{tarball_basedir}.tar.xz
-Source1:        %{name}.init
-Source2:        %{name}
-Source3:        %{name}.sysconfig
-Source4:        %{name}.tmpfiles
 
-Patch0:         %{name}.default.ini.patch
+# Mark sessions as secure since we put the service behind its own proxy
+Patch1:         eucaconsole-5.0.0-sessionsecure.patch
+
+# Prepend the beaker 1.8.1 egg to sys.path so it's used in preference to
+# the beaker 1.5.4 package provided by RHEL
+Patch2:         eucaconsole-5.0.0-beaker-1.8.1.patch
+
 
 BuildArch:      noarch
 
@@ -71,7 +73,10 @@ BuildRequires:  systemd
 # https://bugzilla.redhat.com/show_bug.cgi?id=965654
 Requires:       coreutils >= 8.4-22
 Requires:       eucaconsole-selinux
+Requires:       m2crypto
 Requires:       mailcap
+Requires:       memcached
+Requires:       nginx
 Requires:       openssl >= 1.0.1e-16
 Requires:       pycryptopp >= 0.6
 # This is an = because of the path encoded in /usr/bin/eucaconsole
@@ -95,9 +100,6 @@ Requires:       python-pyramid-layout
 Requires:       python-python-magic
 Requires:       python-simplejson
 Requires:       python-wtforms
-Requires:       m2crypto
-Requires:       memcached
-Requires:       nginx
 
 # TODO:  patch config to write to syslog
 # TODO:  ship a syslog config file
@@ -111,47 +113,21 @@ Eucalyptus cloud and/or AWS services.
 
 
 %prep
-%setup -q -n %{tarball_basedir}
-cp -p %{SOURCE1} .
-cp -p %{SOURCE2} %{name}.py
-%patch0 -p0 -F3
+%autosetup -p1 -n %{tarball_basedir}
 
 
 %build
-python2 setup.py build
+%py2_build
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-python2 setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
+# Without the \ the rpm spec parser will treat --init-system as an
+# option for the py2_install macro rather than for setup.py.
+%py2_install \--init-system=systemd
 
-# Install init script
-install -d $RPM_BUILD_ROOT/etc/init.d
-install -m 755 %{name}.init $RPM_BUILD_ROOT/etc/init.d/%{name}
-
-# Install executable
-install -d $RPM_BUILD_ROOT/usr/bin
-install -m 755 %{name}.py $RPM_BUILD_ROOT/usr/bin/%{name}
-
-# Install conf file
-install -d $RPM_BUILD_ROOT/etc/%{name}
-install -m 755 conf/console.default.ini $RPM_BUILD_ROOT/etc/%{name}/console.ini
-install -m 755 conf/nginx.conf $RPM_BUILD_ROOT/etc/%{name}/nginx.conf
-install -m 755 conf/memcached $RPM_BUILD_ROOT/etc/%{name}/memcached
-
-# Install /run/eucaconsole for PID file and other data
-install -d -m 0755 $RPM_BUILD_ROOT/var/run/eucaconsole
-mkdir -p $RPM_BUILD_ROOT/%{_tmpfilesdir}
-install %{SOURCE4} $RPM_BUILD_ROOT/%{_tmpfilesdir}/%{name}.conf
-
-# Create log file
-install -d $RPM_BUILD_ROOT/var/log
-touch $RPM_BUILD_ROOT/var/log/%{name}.log
-touch $RPM_BUILD_ROOT/var/log/%{name}_startup.log
-
-# Install nginx sysconf file
-install -d $RPM_BUILD_ROOT/%_sysconfdir/sysconfig/
-install -m 644 %{SOURCE3} $RPM_BUILD_ROOT/%_sysconfdir/sysconfig/%{name}
+# Create placeholders
+install -d -m 0755 $RPM_BUILD_ROOT/run/eucaconsole
+install -D /dev/null $RPM_BUILD_ROOT/var/log/%{name}.log
 
 %find_lang %{name}
 
@@ -161,17 +137,17 @@ install -m 644 %{SOURCE3} $RPM_BUILD_ROOT/%_sysconfdir/sysconfig/%{name}
 
 
 %files -f %{name}.lang
+%license COPYING licenses
 %doc README.rst
+%config(noreplace) /etc/%{name}
+%{_bindir}/*
+%{_libexecdir}/%{name}
+%{_tmpfilesdir}/%{name}.conf
+%{_unitdir}/*
 %{python_sitelib}/*
 /usr/share/%{name}
-%config(noreplace) /etc/%{name}
-%{_bindir}/%{name}
-/etc/init.d/%{name}
-%config(noreplace) /etc/sysconfig/%{name}
-%{_tmpfilesdir}/%{name}.conf
-%attr(-,eucaconsole,eucaconsole) %dir /var/run/%{name}
+%attr(-,eucaconsole,eucaconsole) %dir /run/%{name}
 %attr(-,eucaconsole,eucaconsole) /var/log/%{name}.log
-%attr(-,eucaconsole,eucaconsole) /var/log/%{name}_startup.log
 
 
 %pre
@@ -180,22 +156,25 @@ getent passwd eucaconsole >/dev/null || \
     useradd -r -g eucaconsole -d /var/run/eucaconsole \
     -c 'Eucalyptus Console' eucaconsole
 
+
 %post
-/sbin/chkconfig --add eucaconsole
+%systemd_post eucaconsole.service
+
 
 %preun
-if [ $1 -eq 0 ] ; then
-    /sbin/service eucaconsole stop >/dev/null 2>&1
-    /sbin/chkconfig --del eucaconsole
-fi
+%systemd_preun eucaconsole.service
 
 
 %postun
-if [ "$1" -ge "1" ] ; then
-    /sbin/service eucaconsole condrestart >/dev/null 2>&1 || :
-fi
+%systemd_postun_with_restart eucaconsole.service
+
 
 %changelog
+* Fri Feb 10 2017 Garrett Holmstrom <gholms@fedoraproject.org> - 5.0.0
+- Version bump (5.0.0)
+- Ported to systemd (GUI-2869)
+- Added license files
+
 * Mon Jan 30 2017 Garrett Holmstrom <gholms@fedoraproject.org> - 4.3.0
 - Update beaker requirement to 1.8.1 (GUI-2845)
 
@@ -288,6 +267,7 @@ fi
 * Fri Aug 29 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.1.0
 - Added python-pylibmc dependency [GUI-1083]
 - Added python-magic dependency [GUI-1040]
+
 * Tue Jul  8 2014 Eucalyptus Release Engineering <support@eucalyptus.com> - 4.0.1-0
 - Switched to xz-compressed sources
 

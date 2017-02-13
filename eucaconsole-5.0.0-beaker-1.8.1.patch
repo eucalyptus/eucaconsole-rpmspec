@@ -1,0 +1,13 @@
+Index: eucaconsole/bin/eucaconsole
+===================================================================
+--- eucaconsole.orig/bin/eucaconsole
++++ eucaconsole/bin/eucaconsole
+@@ -81,6 +81,8 @@ def main():
+     if args.reload:
+         pserve_argv.append('--reload')
+     try:
++        os.putenv('PYTHONPATH',
++                  '/usr/lib/python2.7/site-packages/Beaker-1.8.1-py2.7.egg')
+         os.execvp(pserve_argv[0], pserve_argv)
+     except OSError as exc:
+         errx(os.EX_OSERR, 'failed to run pserve: {}'.format(exc.strerror))
