@@ -128,7 +128,7 @@ Eucalyptus cloud and/or AWS services.
 
 # Create placeholders
 install -d -m 0755 $RPM_BUILD_ROOT/run/eucaconsole
-install -D /dev/null -m 0644 $RPM_BUILD_ROOT/var/log/%{name}.log
+install -D -m 0644 /dev/null $RPM_BUILD_ROOT/var/log/%{name}.log
 
 %find_lang %{name}
 
