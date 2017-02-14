@@ -128,7 +128,7 @@ Eucalyptus cloud and/or AWS services.
 
 # Create placeholders
 install -d -m 0755 $RPM_BUILD_ROOT/run/eucaconsole
-install -T /dev/null -m 0644 $RPM_BUILD_ROOT/var/log/%{name}.log
+install -D /dev/null -m 0644 $RPM_BUILD_ROOT/var/log/%{name}.log
 
 %find_lang %{name}
 
@@ -171,6 +171,10 @@ getent passwd eucaconsole >/dev/null || \
 
 
 %changelog
+* Tue Feb 14 2017 Matt Bacchi <mbacchi@hpe.com> - 5.0.0
+- Set permissions of eucaconsole.log in install command
+- Require python-pandas
+
 * Fri Feb 10 2017 Garrett Holmstrom <gholms@fedoraproject.org> - 5.0.0
 - Version bump (5.0.0)
 - Ported to systemd (GUI-2869)
