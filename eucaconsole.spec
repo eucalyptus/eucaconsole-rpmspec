@@ -92,6 +92,7 @@ Requires:       python2-funcsigs
 Requires:       python-greenlet >= 0.3.1
 Requires:       python-gunicorn
 Requires:       python-lxml
+Requires:       python-pandas
 Requires:       python-pylibmc
 Requires:       python-pyramid
 Requires:       python-pyramid-beaker
@@ -127,7 +128,7 @@ Eucalyptus cloud and/or AWS services.
 
 # Create placeholders
 install -d -m 0755 $RPM_BUILD_ROOT/run/eucaconsole
-install -D /dev/null $RPM_BUILD_ROOT/var/log/%{name}.log
+install -T /dev/null -m 0644 $RPM_BUILD_ROOT/var/log/%{name}.log
 
 %find_lang %{name}
 
