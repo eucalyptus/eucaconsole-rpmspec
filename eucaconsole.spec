@@ -26,7 +26,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 Name:           eucaconsole
-Version:        4.3.1
+Version:        4.4.0
 Release:        0%{?build_id:.%build_id}%{?dist}
 Summary:        Eucalyptus Management Console
 
@@ -194,6 +194,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Tue Mar  7 2017 Matt Bacchi <mbacchi@hpe.com> - 4.4.0
+- Version bump (4.4.0)
+
 * Mon Jan 30 2017 Garrett Holmstrom <gholms@fedoraproject.org> - 4.3.0
 - Update beaker requirement to 1.8.1 (GUI-2845)
 
