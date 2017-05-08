@@ -26,7 +26,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 Name:           eucaconsole
-Version:        4.4.0
+Version:        4.4.1
 Release:        0%{?build_id:.%build_id}%{?dist}
 Summary:        Eucalyptus Management Console
 
@@ -194,6 +194,9 @@ if [ "$1" -ge "1" ] ; then
 fi
 
 %changelog
+* Mon May  8 2017 Garrett Holmstrom <gholms@dxc.com> - 4.4.1
+- Version bump (4.4.1)
+
 * Tue Mar  7 2017 Matt Bacchi <mbacchi@hpe.com> - 4.4.0
 - Version bump (4.4.0)
 
