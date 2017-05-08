@@ -171,6 +171,12 @@ getent passwd eucaconsole >/dev/null || \
 
 
 %changelog
+* Mon May  8 2017 Garrett Holmstrom <gholms@dxc.com> - 4.4.1
+- Version bump (4.4.1)
+
+* Tue Mar  7 2017 Matt Bacchi <mbacchi@hpe.com> - 4.4.0
+- Version bump (4.4.0)
+
 * Tue Feb 14 2017 Matt Bacchi <mbacchi@hpe.com> - 5.0.0
 - Set permissions of eucaconsole.log in install command
 - Require python-pandas
